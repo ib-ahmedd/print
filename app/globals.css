@@ -1,0 +1,10 @@
+/* @import url(); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+section,
+nav {
+  @apply w-full flex px-4 md:px-8 xl:px-32;
+}
