@@ -30,9 +30,12 @@ module.exports = {
         "site-blue": "#415161",
         "site-orange": "#ff5151",
         "site-orange-hover": "#ff5151",
+        "navlink-hover": "#999",
       },
       backgroundImage: {},
-      fontFamily: {},
+      fontFamily: {
+        poppins: '["Poppins", sans-serif]',
+      },
     },
   },
   plugins: [],
