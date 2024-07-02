@@ -24,7 +24,7 @@ function Navbar() {
     setAccountLinksOpen(false);
   }, [pathname]);
   return (
-    <nav className="relative flex flex-col w-full bg-white">
+    <nav className="relative flex flex-col w-full border-b md:border-none bg-white md:bg-gradient-to-r from-[#FFFFFF00] to-[#EBEDEFDE] ">
       <div className="flex justify-between py-6 w-full">
         <Link href="/" className="relative w-24 md:w-32 h-8 md:h-14">
           <Image

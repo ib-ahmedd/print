@@ -10,5 +10,10 @@ body {
 
 section,
 nav {
-  @apply w-full flex px-4 xl:px-32;
+  @apply w-full flex px-8 xl:px-40;
+}
+
+.half_border {
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, #ff5151 30%, transparent 30%) 100% 1;
 }
