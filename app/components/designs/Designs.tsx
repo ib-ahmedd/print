@@ -13,7 +13,7 @@ function Designs() {
           >
             <img src={item.image} alt={item.title} />
             <div className="flex flex-col items-center gap-3">
-              <h2 className=" text-site-blue">{item.title}</h2>
+              <h3 className=" text-site-blue">{item.title}</h3>
               <p className="text-lg lg:text-xl font-bold text-site-blue">
                 {item.desc}
               </p>

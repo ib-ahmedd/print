@@ -25,3 +25,26 @@ export const designsArray = [
     desc: "Customize Plain Colors",
   },
 ];
+
+export const clientsArray = [
+  {
+    clientImage: "/images/home/clients/client-1.jpg",
+    clientName: "Diana Burnwood",
+  },
+  {
+    clientImage: "/images/home/clients/client-2.png",
+    clientName: "Jessica Foxx​",
+  },
+  {
+    clientImage: "/images/home/clients/client-3.png",
+    clientName: "Lily Granger​",
+  },
+];
+
+export const featuredInArray = [
+  { image: "/images/home/featured/logo-1.png" },
+  { image: "/images/home/featured/logo-2.png" },
+  { image: "/images/home/featured/logo-3.png" },
+  { image: "/images/home/featured/logo-4.png" },
+  { image: "/images/home/featured/logo-5.png" },
+];

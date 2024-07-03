@@ -1,4 +1,4 @@
-import { Deal, Designs, Hero } from "./components";
+import { Clients, Deal, Designs, Hero } from "./components";
 
 function Home() {
   return (
@@ -6,6 +6,7 @@ function Home() {
       <Hero />
       <Designs />
       <Deal />
+      <Clients />
     </main>
   );
 }
