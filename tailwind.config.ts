@@ -32,7 +32,9 @@ module.exports = {
         "site-orange-hover": "#ff5151",
         "navlink-hover": "#999",
       },
-      backgroundImage: {},
+      backgroundImage: {
+        "deal-bg": "url('/images/home/deal/bg-img.jpg')",
+      },
       fontFamily: {
         poppins: '["Poppins", sans-serif]',
       },

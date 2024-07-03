@@ -1,3 +1,4 @@
+import { GenericLink } from "@components";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -17,12 +18,7 @@ function Hero() {
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint
           assumenda in aut tempora voluptate suscipit.
         </p>
-        <Link
-          href="/shop"
-          className="bg-site-orange text-white text-lg py-2 px-8 w-fit rounded-md mt-6"
-        >
-          <FontAwesomeIcon icon={faAngleRight} /> Get started
-        </Link>
+        <GenericLink path="/shop" title="GET STARTED" />
       </div>
       <div className="w-full md:w-1/2 lg:w-fit h-full flex lg:shrink-0 items-end self-end justify-center md:justify-end lg:justify-start">
         <img
