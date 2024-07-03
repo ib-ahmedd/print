@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Footer, Navbar } from "./components";
 
 export const metadata = {
-  title: "Print",
+  title: "Home - Custom Printing",
   description: "We print what you want",
 };
 
