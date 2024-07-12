@@ -54,3 +54,19 @@ nav {
   background-color: white;
   opacity: 0.5;
 }
+
+footer a {
+  @apply hover:text-site-orange text-lg;
+}
+
+footer h3 {
+  @apply text-xl font-bold mb-4;
+}
+
+footer section div {
+  @apply flex flex-col;
+}
+
+footer section > div {
+  @apply w-full sm:w-[45%] lg:w-full lg:flex-1;
+}
