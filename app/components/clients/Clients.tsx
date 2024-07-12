@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Clients() {
   return (
-    <section className="flex-col items-center gap-8 md:gap-20 py-20 md:py-32">
+    <section className="flex-col items-center gap-8 md:gap-20 pt-20">
       <h2 className="center_border pb-3">Our Happy Clients!</h2>
       <div className="flex flex-col md:flex-row gap-8 md:gap-4 lg:gap-8">
         {clientsArray.map((item) => {
