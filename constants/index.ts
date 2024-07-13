@@ -48,3 +48,21 @@ export const featuredInArray = [
   { image: "/images/home/featured/logo-4.png" },
   { image: "/images/home/featured/logo-5.png" },
 ];
+
+export const creativeTeamArray = [
+  {
+    image: "/images/about/creative-team-1.jpg",
+    title: "Amanda Lee",
+    position: "Creative Head",
+  },
+  {
+    image: "/images/about/creative-team-2.jpg",
+    title: "Lee Stoner",
+    position: "Marketing Head",
+  },
+  {
+    image: "/images/about/creative-team-3.jpg",
+    title: "Monica Gala",
+    position: "Graphic Designer",
+  },
+];

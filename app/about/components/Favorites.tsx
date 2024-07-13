@@ -1,3 +1,4 @@
+import { GenericLink } from "@components";
 import { faCodepen, faGg } from "@fortawesome/free-brands-svg-icons";
 import { faHandPaper, faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
