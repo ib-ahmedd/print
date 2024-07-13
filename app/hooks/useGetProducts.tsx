@@ -11,12 +11,11 @@ function useGetProducts(endpoint: string) {
     setLoading(true);
     try {
       const response = await axios.get(apiLink + endpoint);
-      console.log(response);
       setProducts(response.data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
-    setLoading(false);
   }, []);
   useEffect(() => {
     getProducts();

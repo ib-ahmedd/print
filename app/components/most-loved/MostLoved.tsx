@@ -7,7 +7,12 @@ function MostLoved() {
   const { products, loading } = useGetProducts("/most-loved");
   return (
     <>
-      <ProductsSection heading="Most Loved" products={products} />
+      <ProductsSection
+        heading="Most Loved"
+        products={products}
+        skeletonCount={4}
+        loading={loading}
+      />
     </>
   );
 }

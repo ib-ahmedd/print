@@ -6,7 +6,12 @@ function Featured() {
   const { products, loading } = useGetProducts("/featured-products");
   return (
     <>
-      <ProductsSection heading="Featured Products" products={products} />
+      <ProductsSection
+        heading="Featured Products"
+        products={products}
+        loading={loading}
+        skeletonCount={4}
+      />
     </>
   );
 }
