@@ -1,4 +1,4 @@
-import { designsArray } from "@constants";
+import { designsArray } from "@app/constants";
 
 function Designs() {
   return (

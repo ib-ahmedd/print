@@ -1,4 +1,4 @@
-import { clientsArray, featuredInArray } from "@constants";
+import { clientsArray, featuredInArray } from "@app/constants";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

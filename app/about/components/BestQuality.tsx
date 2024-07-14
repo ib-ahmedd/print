@@ -2,23 +2,9 @@
 import { faHeart, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { bestQualityArray, dropDownQuestionArray } from "../constants";
 
 function BestQuality() {
-  const bestQualityArray = [
-    "Personal Gifts",
-    "Couple Tshirts",
-    "Occational Gifts",
-    "Wedding Package",
-    "Corporate Gifts",
-    "Birthday Gifts",
-  ];
-
-  const dropDownQuestionArray = [
-    "We Can Custom Design Your Ideas",
-    "Your Payment Is Safe And Secured",
-    "We Offer Discounts And Coupons",
-  ];
-
   const [openDropDown, setOpenDropDown] = useState("");
 
   function handleDropDown(question: string) {

@@ -1,4 +1,4 @@
-import { creativeTeamArray } from "@constants";
+import { creativeTeamArray } from "../constants";
 
 function CreativeTeam() {
   return (

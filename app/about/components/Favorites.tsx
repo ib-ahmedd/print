@@ -1,15 +1,7 @@
-import { GenericLink } from "@components";
-import { faCodepen, faGg } from "@fortawesome/free-brands-svg-icons";
-import { faHandPaper, faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { aboutFavoritesArray } from "../constants";
 
 function Favorites() {
-  const aboutFavoritesArray = [
-    { icon: faSnowflake, title: "Eros Imperdie" },
-    { icon: faHandPaper, title: "Proident Congu" },
-    { icon: faCodepen, title: "Rerum Rutrum" },
-    { icon: faGg, title: "Vero Maecenas" },
-  ];
   return (
     <section className="flex flex-col lg:flex-row justify-between gap-14 md:gap-8 py-20 md:py-32">
       <div className="w-full lg:w-1/2 xl:w-2/5 ">

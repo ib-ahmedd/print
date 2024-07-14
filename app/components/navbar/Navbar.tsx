@@ -1,5 +1,5 @@
 "use client";
-import { navLinksArray } from "@constants";
+import { navLinksArray } from "@app/constants";
 import Image from "next/image";
 import Link from "next/link";
 import NavLink from "./NavLink";

@@ -4,6 +4,7 @@ import {
   Favorites,
   Hero,
   BestQuality,
+  Features,
 } from "./components";
 
 function About() {
@@ -14,6 +15,7 @@ function About() {
       <Banner />
       <CreativeTeam />
       <BestQuality />
+      <Features />
     </main>
   );
 }
