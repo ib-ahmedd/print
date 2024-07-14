@@ -40,3 +40,10 @@ export const dropDownQuestionArray = [
   "Your Payment Is Safe And Secured",
   "We Offer Discounts And Coupons",
 ];
+
+export const featuresArray = [
+  { title: "Worldwide Shipping", image: "/images/about/features/shipping.png" },
+  { title: "Best Quality", image: "/images/about/features/quality.png" },
+  { title: "Best Offers", image: "/images/about/features/offers.png" },
+  { title: "Secure Payments", image: "/images/about/features/payments.png" },
+];
