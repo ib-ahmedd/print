@@ -14,7 +14,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <body>
+      <body className="text-site-blue">
         <Navbar />
         {children}
         <Footer />

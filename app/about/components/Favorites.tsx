@@ -11,7 +11,7 @@ function Favorites() {
     { icon: faGg, title: "Vero Maecenas" },
   ];
   return (
-    <section className="flex flex-col lg:flex-row justify-between gap-14 md:gap-8 py-20 md:py-32  text-site-blue">
+    <section className="flex flex-col lg:flex-row justify-between gap-14 md:gap-8 py-20 md:py-32">
       <div className="w-full lg:w-1/2 xl:w-2/5 ">
         <h2 className="mb-4">We Are Your Favourite, Online Store.</h2>
         <p className="md:text-lg">

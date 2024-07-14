@@ -9,8 +9,8 @@ function CreativeTeam() {
           return (
             <article className="w-full md:w-[32%] flex flex-col items-center mb-4">
               <img src={item.image} alt={item.title} className="mb-4" />
-              <h4 className="text-xl text-site-blue font-bold">{item.title}</h4>
-              <p className="text-site-blue">{item.position}</p>
+              <h4 className="text-xl font-bold">{item.title}</h4>
+              <p>{item.position}</p>
             </article>
           );
         })}

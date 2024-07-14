@@ -13,7 +13,7 @@ function Clients() {
               key={item.clientName}
               className="flex flex-col gap-4 center_shadow p-8 rounded-2xl"
             >
-              <p className="text-site-blue text-lg">
+              <p className="text-lg">
                 "Lectus, nonummy et. Occaecat delectus erat, minima dapibus
                 ornare nunc, autem."
               </p>
@@ -26,7 +26,7 @@ function Clients() {
               </span>
               <div className="flex items-center gap-2">
                 <img src={item.clientImage} alt={item.clientName} />{" "}
-                <h3 className="text-site-blue font-bold">{item.clientName}</h3>
+                <h3 className="font-bold">{item.clientName}</h3>
               </div>
             </article>
           );
@@ -34,7 +34,7 @@ function Clients() {
       </div>
 
       <div className="w-full flex flex-col md:flex-row items-center gap-0 md:gap-12 justify-between mt-12">
-        <h3 className="text-lg font-bold text-site-blue">Featured in:</h3>
+        <h3 className="text-lg font-bold">Featured in:</h3>
         <div className="flex flex-1 justify-between flex-wrap md:flex-nowrap">
           {featuredInArray.map((item) => (
             <div className="relative logos_filter w-[45%] md:w-full">

@@ -1,4 +1,10 @@
-import { Banner, CreativeTeam, Favorites, Hero } from "./components";
+import {
+  Banner,
+  CreativeTeam,
+  Favorites,
+  Hero,
+  BestQuality,
+} from "./components";
 
 function About() {
   return (
@@ -7,6 +13,7 @@ function About() {
       <Favorites />
       <Banner />
       <CreativeTeam />
+      <BestQuality />
     </main>
   );
 }

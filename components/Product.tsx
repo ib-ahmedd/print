@@ -17,11 +17,11 @@ function Product({
         />
       </Link>
       <p className="text-sm text-gray-400">{category}</p>
-      <Link href="" className="text-site-blue font-bold text-center">
+      <Link href="" className="font-bold text-center">
         {product_name}
       </Link>
       <RatingStars stars={rating} />
-      <p className="text-site-blue font-bold">${price.toFixed(2)}</p>
+      <p className="font-bold">${price.toFixed(2)}</p>
     </article>
   );
 }

@@ -10,7 +10,7 @@ function Deal() {
           <br />
           Deal of the Day!
         </h2>
-        <p className="md:text-lg font-bold text-site-blue">
+        <p className="md:text-lg font-bold">
           Buy This T-shirt At 20% Discount, Use Code Off20
         </p>
         <GenericLink path="" title="SHOP NOW" />
