@@ -18,6 +18,8 @@ function ContactForm() {
   const [sendError, setSendError] = useState(false);
 
   function handleInputs(e: any) {
+    setFormIncomplete(false);
+    setSendError(false);
     const { name, value } = e.target;
     setInputs((prev) => {
       return { ...prev, [name]: value };
@@ -111,6 +113,7 @@ function ContactForm() {
               )}
             </div>
           )}
+
           <button
             value={inputs.message}
             disabled={sending ? true : false}
