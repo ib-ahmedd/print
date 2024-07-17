@@ -13,7 +13,7 @@ h1 {
 }
 
 h2 {
-  @apply text-xl lg:text-4xl mb-4 md:mb-0 font-bold text-site-blue;
+  @apply text-xl lg:text-4xl mb-4 md:mb-0 font-semibold text-site-blue;
 }
 
 section,
@@ -21,7 +21,8 @@ nav {
   @apply w-full flex px-4 md:px-8 xl:px-40;
 }
 
-input {
+input[type="text"],
+input[type="email"] {
   @apply border border-gray-200 px-2 py-1 md:p-3 w-full;
 }
 
@@ -37,6 +38,22 @@ textarea:focus {
 
 .hero_section {
   @apply bg-gradient-to-b md:bg-gradient-to-r from-[#FFFFFF00] to-[#EBEDEFDE];
+}
+
+footer a {
+  @apply hover:text-site-orange text-lg;
+}
+
+footer h3 {
+  @apply text-xl font-bold mb-4;
+}
+
+footer section div {
+  @apply flex flex-col;
+}
+
+footer section > div {
+  @apply w-full sm:w-[45%] lg:w-full lg:flex-1;
 }
 
 .half_border {
@@ -76,22 +93,6 @@ textarea:focus {
   left: 0;
   background-color: white;
   opacity: 0.5;
-}
-
-footer a {
-  @apply hover:text-site-orange text-lg;
-}
-
-footer h3 {
-  @apply text-xl font-bold mb-4;
-}
-
-footer section div {
-  @apply flex flex-col;
-}
-
-footer section > div {
-  @apply w-full sm:w-[45%] lg:w-full lg:flex-1;
 }
 
 .loading div {

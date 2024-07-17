@@ -1,6 +1,7 @@
 import Link from "next/link";
 import RatingStars from "./RatingStars";
 function Product({
+  notShop,
   category,
   product_name,
   product_image,
@@ -8,7 +9,11 @@ function Product({
   price,
 }: ProductProps) {
   return (
-    <article className="w-full sm:w-[32%] md:w-[23.5%] flex flex-col items-center gap-2 mb-8">
+    <article
+      className={`w-[48%] sm:w-[32%] ${
+        notShop && "md:w-[23.5%]"
+      } flex flex-col items-center gap-2 mb-8`}
+    >
       <Link href="">
         <img
           src={product_image}
@@ -17,7 +22,7 @@ function Product({
         />
       </Link>
       <p className="text-sm text-gray-400">{category}</p>
-      <Link href="" className="font-bold text-center">
+      <Link href="" className="font-bold text-center h-10">
         {product_name}
       </Link>
       <RatingStars stars={rating} />
@@ -27,6 +32,7 @@ function Product({
 }
 
 interface ProductProps {
+  notShop?: boolean;
   category: string;
   product_name: string;
   product_image: string;

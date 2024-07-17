@@ -6,9 +6,7 @@ function GenericLink({ path, title, border }: GenericLinkProps) {
   return (
     <Link
       href={path}
-      className={`shrink-0 bg-site-orange text-white py-2 px-8 w-fit rounded-md ${
-        border && "border-2 border-white"
-      }`}
+      className="shrink-0 bg-site-orange text-white py-2 px-8 w-fit rounded-md"
     >
       <FontAwesomeIcon icon={faAngleRight} /> {title}
     </Link>

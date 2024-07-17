@@ -16,9 +16,10 @@ function ProductsSection({
     <section className="w-full flex flex-col gap-16 items-center py-20">
       <h2 className="center_border pb-3">{heading}</h2>
       <div className="w-full flex flex-col sm:flex-row justify-between flex-wrap">
-        {loading && skeletonArray.map((item) => <ProductSkeleton key={item} />)}
+        {loading &&
+          skeletonArray.map((item) => <ProductSkeleton key={item} notShop />)}
         {!loading &&
-          products.map((item) => <Product key={item._id} {...item} />)}
+          products.map((item) => <Product key={item._id} {...item} notShop />)}
       </div>
     </section>
   );
