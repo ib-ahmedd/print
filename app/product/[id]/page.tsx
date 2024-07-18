@@ -1,13 +1,15 @@
 "use client";
 import Product from "@components/Product";
-import { demoProductObject, fallBackProduct } from "@constants";
+import { fallBackProduct } from "@constants";
 import useGetProducts from "@hooks/useGetProducts";
-import { ProductsType } from "@types";
+import { CartItem, ProductsType } from "@types";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import PageSkeleton from "./components/PageSkeleton";
 import { percentage } from "@utils/percentage";
 import Sale from "@components/Sale";
+import { useDispatch } from "react-redux";
+import { add } from "@store/cartSlice";
 
 function ProductPage() {
   const { id } = useParams();
@@ -15,6 +17,8 @@ function ProductPage() {
   const [descOnScreen, setDescOnScreen] = useState(true);
   const [productQuantity, setProductQuantity] = useState<number>(1);
   const { products, loading } = useGetProducts(`/product/${id}`);
+
+  const dispatch = useDispatch();
 
   const {
     product,
@@ -32,7 +36,13 @@ function ProductPage() {
     sale,
   } = product ? product : fallBackProduct;
 
-  const slashedPrice = sale && (price - percentage(price)).toFixed(2);
+  const cartItemBuild: CartItem = {
+    _id,
+    price,
+    product_image,
+    product_name,
+    quantity: productQuantity,
+  };
 
   return (
     <main className="py-0 sm:py-8 xl:py-16 bg-gray-100 px-0 sm:px-4 md:px-8 xl:px-32">
@@ -55,7 +65,7 @@ function ProductPage() {
                     <span className="text-xl md:text-2xl font-normal text-gray-400 mr-2 line-through">
                       ${price.toFixed(2)}
                     </span>
-                    ${slashedPrice}
+                    ${percentage(price, 15).toFixed(2)}
                   </h2>
                 ) : (
                   <h2 className="text-xl md:text-2xl font-bold m-0">
@@ -94,7 +104,12 @@ function ProductPage() {
                     +
                   </button>
                 </div>
-                <button className="px-10 py-2 text-white bg-site-orange rounded-md text-sm md:text-base">
+                <button
+                  onClick={() => {
+                    dispatch(add(cartItemBuild));
+                  }}
+                  className="px-10 py-2 text-white bg-site-orange rounded-md text-sm md:text-base"
+                >
                   ADD TO CART
                 </button>
               </div>

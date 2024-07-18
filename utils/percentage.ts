@@ -1,3 +1,4 @@
-export function percentage(price: number): number {
-  return (15 / 100) * price;
+export function percentage(price: number, percent: number): number {
+  const p = (percent / 100) * price;
+  return price - p;
 }

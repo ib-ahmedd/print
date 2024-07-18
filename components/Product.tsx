@@ -1,6 +1,7 @@
 import Link from "next/link";
 import RatingStars from "./RatingStars";
 import Sale from "./Sale";
+import { percentage } from "@utils/percentage";
 function Product({
   _id,
   notShop,
@@ -31,7 +32,16 @@ function Product({
         {product_name}
       </Link>
       <RatingStars stars={rating} />
-      <p className="font-bold">${price.toFixed(2)}</p>
+      {sale ? (
+        <p className="font-bold">
+          <span className="text-gray-300 line-through">
+            ${price.toFixed(2)}
+          </span>{" "}
+          ${percentage(price, 15).toFixed(2)}
+        </p>
+      ) : (
+        <p className="font-bold">${price.toFixed(2)}</p>
+      )}
     </article>
   );
 }

@@ -8,7 +8,6 @@ function SideBarProducts({
   product_name,
   price,
 }: SideBarProductsProps) {
-  const salePrice = price - percentage(price);
   return (
     <article className="w-[32%] md:w-[47%] flex flex-col mb-4">
       <Link href={`product/${_id}`} className="mb-4 relative">
@@ -24,7 +23,7 @@ function SideBarProducts({
       </Link>
       <div className="w-full flex gap-2">
         <p className="text-gray-400 line-through">${price.toFixed(2)}</p>
-        <p>${salePrice.toFixed(2)}</p>
+        <p>${percentage(price, 15).toFixed(2)}</p>
       </div>
     </article>
   );

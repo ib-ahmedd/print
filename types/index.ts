@@ -16,3 +16,12 @@ export interface ProductsType {
   sale: boolean;
   date_in_stock: string;
 }
+
+export interface CartItem {
+  userId?: string;
+  _id: string;
+  product_name: string;
+  product_image: string;
+  price: number;
+  quantity: number;
+}

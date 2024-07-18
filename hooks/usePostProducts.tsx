@@ -13,7 +13,6 @@ function usePostProducts(
   const [pageData, setPageData] = useState<FetchData>();
   const apiLink = "http://localhost:4000/api";
 
-  console.log(state);
   const getProducts = useCallback(async () => {
     setLoading(true);
     try {

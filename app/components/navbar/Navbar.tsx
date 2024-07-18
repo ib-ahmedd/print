@@ -13,12 +13,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { toggleNavCart } from "@store/globalSlice";
 
 function Navbar() {
   const [accountLinksOpen, setAccountLinksOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const [gradientBg, setGradientBg] = useState(true);
   const pathname = usePathname();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setNavOpen(false);
@@ -108,7 +112,12 @@ function Navbar() {
               </div>
             </div>
           </div>
-          <button className="text-lg text-site-orange-hover flex gap-3 font-medium">
+          <button
+            onClick={() => {
+              dispatch(toggleNavCart());
+            }}
+            className="text-lg text-site-orange-hover flex gap-3 font-medium"
+          >
             $0.00
             <span className="relative">
               <FontAwesomeIcon icon={faCartShopping} />

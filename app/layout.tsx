@@ -2,6 +2,9 @@ import React from "react";
 import "./globals.css";
 import Head from "next/head";
 import { Footer, Navbar } from "./components";
+import ReduxProvider from "@store/ReduxProvider";
+import NavCart from "./nav-cart/NavCart";
+import ScreenCover from "@components/ScreenCover";
 
 export const metadata = {
   title: "Home - Custom Printing",
@@ -15,9 +18,13 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <body className="text-site-blue">
-        <Navbar />
-        {children}
-        <Footer />
+        <ReduxProvider>
+          <Navbar />
+          <NavCart />
+          <ScreenCover />
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );
