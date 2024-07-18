@@ -20,7 +20,7 @@ function ProductPage() {
     window.scroll({ top: 0, behavior: "smooth" });
   }, [state]);
   return (
-    <main className="hero_section px-4 xl:px-20 py-12 flex flex-col-reverse md:flex-row">
+    <main className="bg-gray-100 px-4 xl:px-20 py-12 flex flex-col-reverse md:flex-row">
       <SideBar
         categories={pageData?.productsCategories}
         categoriesCount={pageData?.categoriesCount}

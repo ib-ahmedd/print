@@ -2,7 +2,7 @@ import { ProductsType } from "@types";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-function useGetProducts(
+function usePostProducts(
   endpoint: string,
   state: State
 ): {
@@ -46,4 +46,4 @@ interface State {
   selectedCategory: string;
 }
 
-export default useGetProducts;
+export default usePostProducts;

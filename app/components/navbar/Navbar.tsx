@@ -17,14 +17,26 @@ import { usePathname } from "next/navigation";
 function Navbar() {
   const [accountLinksOpen, setAccountLinksOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [gradientBg, setGradientBg] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
     setNavOpen(false);
     setAccountLinksOpen(false);
+    if (pathname === "/shop") {
+      setGradientBg(false);
+    } else if (pathname.includes("/product")) {
+      setGradientBg(false);
+    } else {
+      setGradientBg(true);
+    }
   }, [pathname]);
   return (
-    <nav className="relative flex flex-col w-full border-b md:border-none bg-white md:bg-gradient-to-r from-[#FFFFFF00] to-[#EBEDEFDE] ">
+    <nav
+      className={`relative flex flex-col w-full border-b md:border-none bg-white ${
+        gradientBg && "md:bg-gradient-to-r from-[#FFFFFF00] to-[#EBEDEFDE]"
+      }`}
+    >
       <div className="flex justify-between py-6 w-full">
         <Link href="/" className="relative w-24 md:w-32 h-8 md:h-14">
           <Image
@@ -119,7 +131,7 @@ function Navbar() {
       {/* --------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */}
-      <div className="md:hidden absolute top-20 left-0 w-full overflow-y-hidden">
+      <div className="md:hidden absolute top-20 left-0 w-full overflow-y-hidden z-20">
         <div
           className={`flex flex-col w-full bg-white text-sm border-t transition duration-150 ${
             navOpen ? "translate-y-0" : "-translate-y-full"

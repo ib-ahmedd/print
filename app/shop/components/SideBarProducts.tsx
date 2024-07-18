@@ -1,23 +1,23 @@
+import Sale from "@components/Sale";
+import { percentage } from "@utils/percentage";
 import Link from "next/link";
 
 function SideBarProducts({
+  _id,
   product_image,
   product_name,
   price,
 }: SideBarProductsProps) {
-  const discount = (15 / 100) * price;
-  const salePrice = price - discount;
+  const salePrice = price - percentage(price);
   return (
     <article className="w-[32%] md:w-[47%] flex flex-col mb-4">
-      <Link href="" className="mb-4 relative">
+      <Link href={`product/${_id}`} className="mb-4 relative">
         <img
           src={product_image}
           alt={product_name}
           className="hover:scale-105 transition-transform duration-150"
         />
-        <p className="absolute -top-2 -right-2 w-8 h-8 z-10 flex items-center justify-center rounded-full bg-white border border-site-orange text-sm">
-          Sale
-        </p>
+        <Sale style={1} />
       </Link>
       <Link href="" className="text-site-orange">
         {product_name}
@@ -31,6 +31,7 @@ function SideBarProducts({
 }
 
 interface SideBarProductsProps {
+  _id: string;
   product_image: string;
   product_name: string;
   price: number;

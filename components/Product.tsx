@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RatingStars from "./RatingStars";
+import Sale from "./Sale";
 function Product({
   _id,
   notShop,
@@ -8,6 +9,7 @@ function Product({
   product_image,
   rating,
   price,
+  sale,
 }: ProductProps) {
   return (
     <article
@@ -15,12 +17,14 @@ function Product({
         notShop && "md:w-[23.5%]"
       } flex flex-col items-center gap-2 mb-8`}
     >
-      <Link href={`/product/${_id}`}>
+      <Link className="relative" href={`/product/${_id}`}>
         <img
           src={product_image}
           alt={product_name}
           className="hover:scale-105 hover:shadow-md transition duration-150"
         />
+
+        {sale && <Sale style={2} />}
       </Link>
       <p className="text-sm text-gray-400">{category}</p>
       <Link href={`/product/${_id}`} className="font-bold text-center h-10">
@@ -40,6 +44,7 @@ interface ProductProps {
   product_image: string;
   price: number;
   rating: number;
+  sale: boolean;
 }
 
 export default Product;

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
 function useGetProducts(endpoint: string) {
-  const [products, setProducts] = useState<ProductsType[]>([]);
+  const [products, setProducts] = useState<any>();
   const [loading, setLoading] = useState(true);
   const apiLink = "http://localhost:4000/api";
 

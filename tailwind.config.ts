@@ -36,7 +36,7 @@ module.exports = {
         "deal-bg": "url('/images/home/deal/bg-img.jpg')",
       },
       fontFamily: {
-        poppins: '["Poppins", sans-serif]',
+        poppins: ["'Poppins', sans-serif"],
       },
     },
   },
