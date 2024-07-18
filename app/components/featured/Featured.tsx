@@ -1,5 +1,5 @@
 "use client";
-import useGetProducts from "@app/hooks/useGetProducts";
+import useGetProducts from "@hooks/useGetProducts";
 import { ProductsSection } from "@components";
 
 function Featured() {

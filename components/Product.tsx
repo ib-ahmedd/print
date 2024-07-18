@@ -1,6 +1,7 @@
 import Link from "next/link";
 import RatingStars from "./RatingStars";
 function Product({
+  _id,
   notShop,
   category,
   product_name,
@@ -14,7 +15,7 @@ function Product({
         notShop && "md:w-[23.5%]"
       } flex flex-col items-center gap-2 mb-8`}
     >
-      <Link href="">
+      <Link href={`/product/${_id}`}>
         <img
           src={product_image}
           alt={product_name}
@@ -22,7 +23,7 @@ function Product({
         />
       </Link>
       <p className="text-sm text-gray-400">{category}</p>
-      <Link href="" className="font-bold text-center h-10">
+      <Link href={`/product/${_id}`} className="font-bold text-center h-10">
         {product_name}
       </Link>
       <RatingStars stars={rating} />
@@ -32,6 +33,7 @@ function Product({
 }
 
 interface ProductProps {
+  _id: string;
   notShop?: boolean;
   category: string;
   product_name: string;

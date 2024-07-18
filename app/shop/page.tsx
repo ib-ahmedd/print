@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useReducer, useState } from "react";
 import { ShopSection, SideBar } from "./components";
-import useGetProducts from "./hooks/useGetProducts";
+import usePostProducts from "../../hooks/usePostProducts";
 import { reducer } from "./reducer";
 
 function ProductPage() {
@@ -14,7 +14,7 @@ function ProductPage() {
 
   const [state, dispatch] = useReducer(reducer, reducerState);
 
-  const { pageData, loading } = useGetProducts(state);
+  const { pageData, loading } = usePostProducts("/shop-page", state);
 
   useEffect(() => {
     window.scroll({ top: 0, behavior: "smooth" });
