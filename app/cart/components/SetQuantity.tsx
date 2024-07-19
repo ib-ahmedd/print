@@ -21,11 +21,11 @@ function SetQuantity({
             });
           });
         }}
-        className="border border-gray-300 w-10 h-10 flex items-center justify-center"
+        className="border border-gray-300 w-7 md:w-10 h-7 md:h-10 flex items-center justify-center"
       >
         -
       </button>
-      <p className="border border-gray-300 w-10 h-10 flex items-center justify-center">
+      <p className="border border-gray-300 w-7 md:w-10 h-7 md:h-10 flex items-center justify-center">
         {productQuantity}
       </p>
       <button
@@ -40,7 +40,7 @@ function SetQuantity({
             });
           });
         }}
-        className="border border-gray-300 w-10 h-10 flex items-center justify-center"
+        className="border border-gray-300 w-7 md:w-10 h-7 md:h-10 flex items-center justify-center"
       >
         +
       </button>

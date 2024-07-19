@@ -22,7 +22,7 @@ function ProductsTable() {
   }, [cartItems]);
   return (
     <>
-      <table className="hidden md:table">
+      <table className="w-full hidden md:table">
         <thead>
           <tr className="text-left border border-gray-300 px-8 h-12 bg-gray-50">
             <th></th>
@@ -48,7 +48,7 @@ function ProductsTable() {
 
       {/* -----------------mobile table----------------------------------- */}
 
-      <table className="table md:hidden mobile_table">
+      <table className="w-full table md:hidden mobile_table">
         <tbody>
           {tableData.map((item) => (
             <MobileTableItem
