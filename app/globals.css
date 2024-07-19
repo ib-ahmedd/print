@@ -60,6 +60,18 @@ footer section > div {
   @apply w-full sm:w-[45%] lg:w-full lg:flex-1;
 }
 
+.mobile_table tr {
+  @apply border border-gray-300;
+}
+
+.mobile_table div {
+  @apply flex justify-between p-2 text-sm items-center;
+}
+
+.mobile_table h4 {
+  @apply font-bold;
+}
+
 .half_border {
   border-top: 3px solid;
   border-image: linear-gradient(to right, #ff5151 30%, transparent 30%) 100% 1;

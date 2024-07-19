@@ -13,6 +13,7 @@ import { add } from "@store/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import SetQuantity from "@components/SetQuantity";
 
 function ProductPage() {
   const { id } = useParams();
@@ -109,29 +110,10 @@ function ProductPage() {
               </p>
 
               <div className="w-full flex gap-4 border-b pb-4">
-                <div className="flex items-center">
-                  <button
-                    onClick={() => {
-                      if (productQuantity > 1)
-                        return setProductQuantity((prev) => prev - 1);
-                    }}
-                    className="border w-10 h-10 flex items-center justify-center"
-                  >
-                    -
-                  </button>
-                  <p className="border w-10 h-10 flex items-center justify-center">
-                    {productQuantity}
-                  </p>
-                  <button
-                    onClick={() => {
-                      if (productQuantity < 5)
-                        return setProductQuantity((prev) => prev + 1);
-                    }}
-                    className="border w-10 h-10 flex items-center justify-center"
-                  >
-                    +
-                  </button>
-                </div>
+                <SetQuantity
+                  productQuantity={productQuantity}
+                  setProductQuantity={setProductQuantity}
+                />
                 <button
                   onClick={() => {
                     setCartAdded(true);
