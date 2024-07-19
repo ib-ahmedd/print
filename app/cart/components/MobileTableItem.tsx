@@ -1,10 +1,10 @@
-import SetQuantity from "@components/SetQuantity";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { remove } from "@store/cartSlice";
 import { CartItem } from "@types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import SetQuantity from "./SetQuantity";
 
 function MobileTableItem({
   _id,
@@ -13,17 +13,10 @@ function MobileTableItem({
   price,
   quantity,
   setTableAltered,
+  setTableData,
 }: MobileTableItemProps) {
-  const [productQuantity, setProductQuantity] = useState(quantity);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (productQuantity !== quantity) {
-      setTableAltered(true);
-    } else {
-      setTableAltered(false);
-    }
-  }, [productQuantity, quantity]);
   return (
     <>
       <tr>
@@ -68,8 +61,10 @@ function MobileTableItem({
           <div>
             <h4>Quantity:</h4>
             <SetQuantity
-              productQuantity={productQuantity}
-              setProductQuantity={setProductQuantity}
+              id={_id}
+              productQuantity={quantity}
+              setTableData={setTableData}
+              setTableAltered={setTableAltered}
             />
           </div>
         </td>
@@ -78,7 +73,7 @@ function MobileTableItem({
         <td>
           <div>
             <h4>Subtotal:</h4>
-            <p>${(price * productQuantity).toFixed(2)}</p>
+            <p>${(price * quantity).toFixed(2)}</p>
           </div>
         </td>
       </tr>
@@ -88,6 +83,7 @@ function MobileTableItem({
 
 interface MobileTableItemProps extends CartItem {
   setTableAltered: Dispatch<SetStateAction<boolean>>;
+  setTableData: Dispatch<SetStateAction<CartItem[]>>;
 }
 
 export default MobileTableItem;

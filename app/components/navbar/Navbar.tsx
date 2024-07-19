@@ -31,7 +31,7 @@ function Navbar() {
   useEffect(() => {
     setNavOpen(false);
     setAccountLinksOpen(false);
-    if (pathname === "/shop") {
+    if (pathname === "/shop" || pathname === "/cart") {
       setGradientBg(false);
     } else if (pathname.includes("/product")) {
       setGradientBg(false);

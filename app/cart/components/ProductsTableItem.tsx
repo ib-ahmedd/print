@@ -1,4 +1,3 @@
-import SetQuantity from "@components/SetQuantity";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { remove } from "@store/cartSlice";
@@ -6,6 +5,7 @@ import { CartItem } from "@types";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import SetQuantity from "./SetQuantity";
 
 function ProductsTableItem({
   _id,
@@ -14,17 +14,10 @@ function ProductsTableItem({
   price,
   quantity,
   setTableAltered,
+  setTableData,
 }: ProductsTableItemsProps) {
-  const [productQuantity, setProductQuantity] = useState(quantity);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (productQuantity !== quantity) {
-      setTableAltered(true);
-    } else {
-      setTableAltered(false);
-    }
-  }, [productQuantity, quantity]);
   return (
     <tr className="border border-gray-300 p-4">
       <td className="pl-8">
@@ -50,17 +43,20 @@ function ProductsTableItem({
       </td>
       <td>
         <SetQuantity
-          productQuantity={productQuantity}
-          setProductQuantity={setProductQuantity}
+          id={_id}
+          productQuantity={quantity}
+          setTableData={setTableData}
+          setTableAltered={setTableAltered}
         />
       </td>
-      <td>${(price * productQuantity).toFixed(2)}</td>
+      <td>${(price * quantity).toFixed(2)}</td>
     </tr>
   );
 }
 
 interface ProductsTableItemsProps extends CartItem {
   setTableAltered: Dispatch<SetStateAction<boolean>>;
+  setTableData: Dispatch<SetStateAction<CartItem[]>>;
 }
 
 export default ProductsTableItem;

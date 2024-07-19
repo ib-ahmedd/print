@@ -1,19 +1,25 @@
 "use client";
 import { RootState } from "@store";
 import { CartItem } from "@types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductsTableItem from "./ProductsTableItem";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import MobileTableItem from "./MobileTableItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { update } from "@store/cartSlice";
 
 function ProductsTable() {
   const cartItems: CartItem[] = useSelector((state: RootState) => {
     return state.cart.cartitems;
   });
 
+  const [tableData, setTableData] = useState<CartItem[]>([]);
   const [tableAltered, setTableAltered] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTableData(cartItems);
+  }, [cartItems]);
   return (
     <>
       <table className="hidden md:table">
@@ -28,11 +34,12 @@ function ProductsTable() {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((item) => (
+          {tableData.map((item) => (
             <ProductsTableItem
               key={item._id}
               {...item}
               setTableAltered={setTableAltered}
+              setTableData={setTableData}
             />
           ))}
         </tbody>
@@ -43,11 +50,12 @@ function ProductsTable() {
 
       <table className="table md:hidden mobile_table">
         <tbody>
-          {cartItems.map((item) => (
+          {tableData.map((item) => (
             <MobileTableItem
               key={item._id}
               {...item}
               setTableAltered={setTableAltered}
+              setTableData={setTableData}
             />
           ))}
         </tbody>
@@ -55,6 +63,10 @@ function ProductsTable() {
 
       <div className="p-4 w-full border border-gray-300 border-t-0 flex justify-end">
         <button
+          onClick={() => {
+            setTableAltered(false);
+            dispatch(update(tableData));
+          }}
           disabled={tableAltered ? false : true}
           className={`px-4 py-2 text-white bg-site-orange rounded-md text-sm md:text-base ${
             !tableAltered && "opacity-50"

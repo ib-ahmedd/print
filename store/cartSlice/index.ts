@@ -35,6 +35,14 @@ const cartSlice = createSlice({
       state.cartitems = state.cartitems.filter((item) => item._id !== payload);
       setCookie("CartItems", JSON.stringify(state.cartitems), 1);
     },
+
+    update: (state, action: PayloadAction<CartItem[]>) => {
+      const { payload } = action;
+      state.cartitems = state.cartitems.filter(() => {});
+      payload.forEach((item) => state.cartitems.push(item));
+      setCookie("CartItems", JSON.stringify(state.cartitems), 1);
+      console.log(state);
+    },
   },
 });
 
@@ -42,6 +50,6 @@ interface InitialState {
   cartitems: CartItem[];
 }
 
-export const { add, get, remove } = cartSlice.actions;
+export const { add, get, remove, update } = cartSlice.actions;
 
 export default cartSlice.reducer;
