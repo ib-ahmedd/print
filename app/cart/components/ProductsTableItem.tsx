@@ -15,6 +15,7 @@ function ProductsTableItem({
   quantity,
   setTableAltered,
   setTableData,
+  setCartUpdated,
 }: ProductsTableItemsProps) {
   const dispatch = useDispatch();
 
@@ -47,6 +48,7 @@ function ProductsTableItem({
           productQuantity={quantity}
           setTableData={setTableData}
           setTableAltered={setTableAltered}
+          setCartUpdated={setCartUpdated}
         />
       </td>
       <td>${(price * quantity).toFixed(2)}</td>
@@ -56,6 +58,7 @@ function ProductsTableItem({
 
 interface ProductsTableItemsProps extends CartItem {
   setTableAltered: Dispatch<SetStateAction<boolean>>;
+  setCartUpdated: Dispatch<SetStateAction<boolean>>;
   setTableData: Dispatch<SetStateAction<CartItem[]>>;
 }
 

@@ -14,6 +14,7 @@ function MobileTableItem({
   quantity,
   setTableAltered,
   setTableData,
+  setCartUpdated,
 }: MobileTableItemProps) {
   const dispatch = useDispatch();
 
@@ -65,6 +66,7 @@ function MobileTableItem({
               productQuantity={quantity}
               setTableData={setTableData}
               setTableAltered={setTableAltered}
+              setCartUpdated={setCartUpdated}
             />
           </div>
         </td>
@@ -83,6 +85,7 @@ function MobileTableItem({
 
 interface MobileTableItemProps extends CartItem {
   setTableAltered: Dispatch<SetStateAction<boolean>>;
+  setCartUpdated: Dispatch<SetStateAction<boolean>>;
   setTableData: Dispatch<SetStateAction<CartItem[]>>;
 }
 

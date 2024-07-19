@@ -6,6 +6,7 @@ function SetQuantity({
   productQuantity,
   id,
   setTableAltered,
+  setCartUpdated,
 }: SetQuantityProps) {
   return (
     <article className="flex items-center">
@@ -16,6 +17,7 @@ function SetQuantity({
               if (item._id === id && item.quantity > 1) {
                 item = { ...item, quantity: item.quantity - 1 };
                 setTableAltered(true);
+                setCartUpdated(false);
               }
               return item;
             });
@@ -35,6 +37,7 @@ function SetQuantity({
               if (item._id === id) {
                 item = { ...item, quantity: item.quantity + 1 };
                 setTableAltered(true);
+                setCartUpdated(false);
               }
               return item;
             });
@@ -52,6 +55,7 @@ interface SetQuantityProps {
   id: string;
   setTableData: Dispatch<SetStateAction<CartItem[]>>;
   setTableAltered: Dispatch<SetStateAction<boolean>>;
+  setCartUpdated: Dispatch<SetStateAction<boolean>>;
   productQuantity: number;
 }
 

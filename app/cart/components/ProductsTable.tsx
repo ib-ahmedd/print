@@ -6,6 +6,8 @@ import ProductsTableItem from "./ProductsTableItem";
 import MobileTableItem from "./MobileTableItem";
 import { useEffect, useState } from "react";
 import { update } from "@store/cartSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 function ProductsTable() {
   const cartItems: CartItem[] = useSelector((state: RootState) => {
@@ -14,6 +16,7 @@ function ProductsTable() {
 
   const [tableData, setTableData] = useState<CartItem[]>([]);
   const [tableAltered, setTableAltered] = useState(false);
+  const [cartUpdated, setCartUpdated] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -22,6 +25,15 @@ function ProductsTable() {
   }, [cartItems]);
   return (
     <>
+      {cartUpdated && (
+        <div className="w-full flex gap-4 p-4 mb-8 bg-gray-50 border-t-2 border-site-orange">
+          <span className="h-5 w-5 rounded-full text-sm bg-site-orange text-white flex items-center justify-center">
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
+          <p className="text-sm md:text-base">Cart updated.</p>
+        </div>
+      )}
+
       <table className="w-full hidden md:table">
         <thead>
           <tr className="text-left border border-gray-300 px-8 h-12 bg-gray-50">
@@ -40,6 +52,7 @@ function ProductsTable() {
               {...item}
               setTableAltered={setTableAltered}
               setTableData={setTableData}
+              setCartUpdated={setCartUpdated}
             />
           ))}
         </tbody>
@@ -56,6 +69,7 @@ function ProductsTable() {
               {...item}
               setTableAltered={setTableAltered}
               setTableData={setTableData}
+              setCartUpdated={setCartUpdated}
             />
           ))}
         </tbody>
@@ -65,6 +79,7 @@ function ProductsTable() {
         <button
           onClick={() => {
             setTableAltered(false);
+            setCartUpdated(true);
             dispatch(update(tableData));
           }}
           disabled={tableAltered ? false : true}
