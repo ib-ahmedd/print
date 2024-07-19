@@ -13,11 +13,17 @@ function NavCartItem({
   const dispatch = useDispatch();
   return (
     <article className="flex gap-2 h-fit py-3 border-b shrink-0">
-      <img src={product_image} alt={product_name} className="w-[12%]" />
+      <img
+        src={product_image}
+        alt={product_name}
+        className="w-[3em] shrink-0"
+      />
 
       <div className="flex flex-col flex-1">
-        <Link href={`/product/${_id}`}>{product_name}</Link>
-        <p>
+        <Link href={`/product/${_id}`} className="text-sm md:text-base">
+          {product_name}
+        </Link>
+        <p className="text-sm md:text-base">
           {quantity} × ${price.toFixed(2)}
         </p>
       </div>

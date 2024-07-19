@@ -7,24 +7,25 @@ import { useDispatch, useSelector } from "react-redux";
 import NavCartItem from "./components/NavCartItem";
 import { subtotal } from "@utils/subtotal";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { get } from "@store/cartSlice";
-import { deleteCookie } from "@utils/cookies";
 
 function NavCart() {
   const cartOpen = useSelector((state: RootState) => state.global.navCartOpen);
   const cartItems = useSelector((state: RootState) => state.cart.cartitems);
+  const [appLoaded, setAppLoaded] = useState(false);
   const dispatch = useDispatch();
 
-  //   deleteCookie("CartItems");
-
   useEffect(() => {
-    dispatch(get());
+    if (!appLoaded) {
+      dispatch(get());
+      setAppLoaded(true);
+    }
   }, []);
 
   return (
     <aside
-      className={`w-1/3 fixed h-screen right-0 top-0 z-40 bg-white flex flex-col justify-between transition-transform duration-150 ${
+      className={`w-full sm:w-4/5 md:w-1/2 lg:w-1/3 fixed h-screen right-0 top-0 z-40 bg-white flex flex-col justify-between transition-transform duration-150 ${
         cartOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -57,7 +58,7 @@ function NavCart() {
 
       {cartItems.length > 0 && (
         <>
-          <div className="h-[64%] overflow-y-scroll px-4">
+          <div className="h-[64%] overflow-y-auto px-4">
             {cartItems.map((item) => (
               <NavCartItem key={item._id} {...item} />
             ))}

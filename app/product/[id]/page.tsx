@@ -4,19 +4,25 @@ import { fallBackProduct } from "@constants";
 import useGetProducts from "@hooks/useGetProducts";
 import { CartItem, ProductsType } from "@types";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PageSkeleton from "./components/PageSkeleton";
 import { percentage } from "@utils/percentage";
 import Sale from "@components/Sale";
 import { useDispatch } from "react-redux";
 import { add } from "@store/cartSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 function ProductPage() {
   const { id } = useParams();
 
   const [descOnScreen, setDescOnScreen] = useState(true);
+  const [addLoading, setAddLoading] = useState(false);
+  const [cartAdded, setCartAdded] = useState(false);
   const [productQuantity, setProductQuantity] = useState<number>(1);
   const { products, loading } = useGetProducts(`/product/${id}`);
+  const addedQuantity = useRef(0);
 
   const dispatch = useDispatch();
 
@@ -50,6 +56,28 @@ function ProductPage() {
 
       {!loading && (
         <section className="flex-col gap-12 py-20 px-4 md:px-8 xl:px-24 bg-white">
+          {cartAdded && (
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t-4 border-site-orange p-4 md:p-6 bg-gray-50">
+              <div className="flex items-center justify-between gap-4">
+                <span className="w-5 h-5 flex items-center justify-center rounded-full bg-site-orange text-white text-sm">
+                  <FontAwesomeIcon icon={faCheck} />
+                </span>
+                <p className="flex-1 text-sm md:text-base">
+                  {addedQuantity.current} × "{product_name}"{" "}
+                  {addedQuantity.current < 2 ? "has" : "have"} been added to
+                  your cart
+                </p>
+              </div>
+
+              <Link
+                href="/cart"
+                className="w-fit py-2 px-6 bg-site-orange text-white rounded-md justify-self-end text-sm md:text-base"
+              >
+                VIEW CART
+              </Link>
+            </div>
+          )}
+
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 relative">
               <img src={product_image} alt={product_name} />
@@ -106,6 +134,8 @@ function ProductPage() {
                 </div>
                 <button
                   onClick={() => {
+                    setCartAdded(true);
+                    addedQuantity.current = productQuantity;
                     dispatch(add(cartItemBuild));
                   }}
                   className="px-10 py-2 text-white bg-site-orange rounded-md text-sm md:text-base"

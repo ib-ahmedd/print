@@ -1,10 +1,19 @@
 import { CartItem } from "@types";
 
 export function subtotal(array: CartItem[]): number {
-  let subtotal = 0;
+  let total = 0;
 
   array.forEach((item) => {
-    subtotal = subtotal + item.price * item.quantity;
+    total = total + item.price * item.quantity;
   });
-  return subtotal;
+  return total;
+}
+
+export function itemsCount(array: CartItem[]): number {
+  let items = 0;
+  array.forEach((item) => {
+    items = items + item.quantity;
+  });
+
+  return items;
 }

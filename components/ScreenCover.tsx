@@ -29,7 +29,7 @@ function ScreenCover() {
       onClick={() => {
         dispatch(toggleNavCart());
       }}
-      className={`fixed h-screen w-full bg-black opacity-40 z-30 top-0 left-0 ${
+      className={`fixed h-screen w-full bg-black opacity-60 z-30 top-0 left-0 ${
         displayed ? "block" : "hidden"
       }`}
     />
