@@ -21,19 +21,24 @@ nav {
   @apply w-full flex px-4 md:px-8 xl:px-40;
 }
 
-input[type="text"],
-input[type="email"] {
+.contact_form input[type="text"],
+.contact_form input[type="email"] {
   @apply border border-gray-200 px-2 py-1 md:p-3 w-full;
 }
 
-input::placeholder,
-textarea::placeholder {
+.contact_form input::placeholder,
+.contact_form textarea::placeholder {
   @apply text-gray-500;
 }
 
-input:focus,
-textarea:focus {
+.contact_form input:focus,
+.contact_form textarea:focus {
   @apply border-dashed outline-none;
+}
+
+.checkout_form input,
+.checkout_form select {
+  @apply border border-gray-200 px-2 py-1 md:p-3 w-full;
 }
 
 .hero_section {

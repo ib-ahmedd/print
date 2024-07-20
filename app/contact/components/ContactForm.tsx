@@ -58,7 +58,7 @@ function ContactForm() {
         e.preventDefault();
         handleSubmit();
       }}
-      className="w-full md:w-1/2 flex flex-col gap-4 md:gap-6 rounded-md bg-white border-2 border-gray-200 px-4 lg:px-8 py-8 md:py-20"
+      className="contact_form w-full md:w-1/2 flex flex-col gap-4 md:gap-6 rounded-md bg-white border-2 border-gray-200 px-4 lg:px-8 py-8 md:py-20"
     >
       {!sendSuccess && (
         <>
