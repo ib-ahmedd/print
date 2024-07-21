@@ -26,6 +26,7 @@ function MobileTableItem({
             <button
               onClick={() => {
                 dispatch(remove(_id));
+                setCartUpdated(true);
               }}
               className="w-5 h-5 rounded-full flex items-center justify-center border border-gray-400 text-gray-400 text-sm"
             >
