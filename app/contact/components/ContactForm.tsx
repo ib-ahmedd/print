@@ -30,7 +30,7 @@ function ContactForm() {
     setSending(true);
     setSendError(false);
     setFormIncomplete(false);
-    if (checkFormComplete(inputs)) {
+    if (checkFormComplete(inputs, 3)) {
       try {
         await axios.post("http://localhost:4000/api/send-message", inputs);
         setSendSuccess(true);

@@ -26,7 +26,7 @@ function ProductsTable() {
   return (
     <>
       {cartUpdated && (
-        <div className="w-full flex gap-4 p-4 mb-8 bg-gray-50 border-t-2 border-site-orange">
+        <div className="w-full flex gap-4 p-2 md:p-4 mb-8 bg-gray-50 border-t-2 border-site-orange">
           <span className="h-5 w-5 rounded-full text-sm bg-site-orange text-white flex items-center justify-center">
             <FontAwesomeIcon icon={faCheck} />
           </span>

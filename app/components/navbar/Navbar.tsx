@@ -25,6 +25,7 @@ function Navbar() {
   const pathname = usePathname();
 
   const cartItems = useSelector((state: RootState) => state.cart.cartitems);
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -64,7 +65,7 @@ function Navbar() {
             <div className="relative">
               <div
                 className={`z-20 text-site-blue flex items-center gap-2 cursor-pointer ${
-                  pathname === "/account" || pathname === "/cart"
+                  pathname === "/account" || pathname === "/cart" || "/login"
                     ? "text-site-orange"
                     : "text-site-blue hover:text-navlink-hover"
                 }`}
@@ -93,7 +94,7 @@ function Navbar() {
                   }`}
                 >
                   <Link
-                    href="/account"
+                    href={isLoggedIn ? "/account" : "/login"}
                     className={`p-4 ${
                       pathname === "/account"
                         ? "text-site-orange"

@@ -1,14 +1,11 @@
-export default function checkFormComplete(inputs: InputType): boolean {
+export default function checkFormComplete(
+  inputs: any,
+  length: number
+): boolean {
   const inputsArray = Object.values(inputs);
-  if (inputsArray.length === 3 && !inputsArray.includes("")) {
+  if (inputsArray.length === length && !inputsArray.includes("")) {
     return true;
   } else {
     return false;
   }
-}
-
-interface InputType {
-  email: string;
-  subject: string;
-  message: string;
 }
