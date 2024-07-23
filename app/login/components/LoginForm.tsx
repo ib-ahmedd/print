@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import FormInput from "./FormInput";
 import checkFormComplete from "@utils/checkFormComplete";
 import axios from "axios";
@@ -7,8 +7,9 @@ import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
+import { Inview } from "../types";
 
-function LoginForm({ inView }: LoginFormProps) {
+function LoginForm({ inView, setInView }: LoginFormProps) {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -22,6 +23,8 @@ function LoginForm({ inView }: LoginFormProps) {
   const router = useRouter();
 
   function handleInputs(e: any) {
+    setError(false);
+    setErrorMessage("");
     const { name, value } = e.target;
     setInputs((prev) => {
       return { ...prev, [name]: value };
@@ -29,6 +32,8 @@ function LoginForm({ inView }: LoginFormProps) {
   }
 
   async function handleSubmit() {
+    setError(false);
+    setErrorMessage("");
     setLoading(true);
     try {
       if (checkFormComplete(inputs, 2)) {
@@ -57,11 +62,13 @@ function LoginForm({ inView }: LoginFormProps) {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      className={`login_form w-full shrink-0 transition duration-150 absolute top-0 left-0 flex flex-col gap-4 py-8 ${
+      className={`login_form w-full shrink-0 transition duration-150 absolute top-0 left-0 flex flex-col gap-4 py-8  ${
         inView === "register" && "translate-x-full opacity-0"
       } ${inView === "login" && "translate-x-0 opacity-100"} ${
-        inView === "OTP" && "translate-x-full opacity-0"
-      } ${inView === "complete" && "translate-x-full opacity-0"}`}
+        inView !== "register" &&
+        inView !== "login" &&
+        "-translate-x-full opacity-0"
+      }`}
     >
       <FormInput
         type="email"
@@ -70,6 +77,7 @@ function LoginForm({ inView }: LoginFormProps) {
         value={inputs.email}
         loading={loading}
         handleInputs={handleInputs}
+        loginDetailsError={errorMessage === "Incorrect username or password"}
       />
       <FormInput
         type="password"
@@ -78,6 +86,7 @@ function LoginForm({ inView }: LoginFormProps) {
         placeholder="Password"
         value={inputs.password}
         handleInputs={handleInputs}
+        loginDetailsError={errorMessage === "Incorrect username or password"}
       />
 
       {error && (
@@ -98,14 +107,22 @@ function LoginForm({ inView }: LoginFormProps) {
         {loading ? "LOADING..." : "SIGN IN"}
       </button>
       <div>
-        <button className="text-site-orange">Forgot password</button>
+        <button
+          onClick={() => {
+            setInView("forgot-email");
+          }}
+          className="text-site-orange"
+        >
+          Forgot password
+        </button>
       </div>
     </form>
   );
 }
 
 interface LoginFormProps {
-  inView: "register" | "login" | "OTP" | "complete";
+  inView: Inview;
+  setInView: Dispatch<SetStateAction<Inview>>;
 }
 
 export default LoginForm;

@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { CompleteRegister, LoginForm, SignUpForm } from "./components";
 import OTP from "./components/OTP";
+import { Inview } from "./types";
+import ForgotEmailForm from "./components/ForgotEmailForm";
 
 function Login() {
-  const [inView, setInView] = useState<
-    "login" | "register" | "OTP" | "complete"
-  >("login");
+  const [inView, setInView] = useState<Inview>("login");
   const [pendingUser, setPendingUser] = useState({
     fname: "",
     lname: "",
@@ -91,7 +91,9 @@ function Login() {
             setPendingUser={setPendingUser}
             setInview={setInView}
           />
-          <LoginForm inView={inView} />
+          <LoginForm inView={inView} setInView={setInView} />
+
+          <ForgotEmailForm inView={inView} />
         </div>
       </section>
     </main>

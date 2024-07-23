@@ -10,6 +10,7 @@ import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
+import { Inview } from "../types";
 
 function CompleteRegister({
   inView,
@@ -86,9 +87,7 @@ function CompleteRegister({
         handleSubmit();
       }}
       className={`w-full shrink-0 flex flex-col items-center py-8 gap-4 transition duration-150 absolute top-0 left-0 ${
-        inView === "register" && "-translate-x-full opacity-0"
-      } ${inView === "login" && "-translate-x-full opacity-0"} ${
-        inView === "OTP" && "-translate-x-full opacity-0"
+        inView !== "complete" && "-translate-x-full opacity-0"
       } ${inView === "complete" && "translate-x-0 opacity-100"}`}
     >
       <SelectInput
@@ -168,7 +167,7 @@ function CompleteRegister({
 
 interface CompleteRegisterProps {
   authToken: string;
-  inView: "register" | "login" | "OTP" | "complete";
+  inView: Inview;
   pendingUser: {
     fname: string;
     lname: string;

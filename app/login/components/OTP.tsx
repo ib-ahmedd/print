@@ -3,6 +3,7 @@ import FormInput from "./FormInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { Inview } from "../types";
 
 function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
   const [input, setInput] = useState("");
@@ -54,10 +55,12 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
         e.preventDefault();
       }}
       className={`w-full shrink-0 flex flex-col items-center py-8 gap-4 transition duration-150 absolute top-0 left-0 ${
-        inView === "register" && "-translate-x-full opacity-0"
-      } ${inView === "login" && "-translate-x-full opacity-0"} ${
-        inView === "OTP" && "translate-x-0 opacity-100"
-      } ${inView === "complete" && "translate-x-full opacity-0"}`}
+        inView !== "complete" &&
+        inView !== "OTP" &&
+        "-translate-x-full opacity-0"
+      } ${inView === "OTP" && "translate-x-0 opacity-100"} ${
+        inView === "complete" && "translate-x-full opacity-0"
+      }`}
     >
       <h2 className="text-lg font-normal text-center">
         Enter code sent to {email} to verify your email.
@@ -117,11 +120,9 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
 }
 
 interface OTPProps {
-  setInView: Dispatch<
-    SetStateAction<"login" | "OTP" | "register" | "complete">
-  >;
+  setInView: Dispatch<SetStateAction<Inview>>;
   email: string;
-  inView: "login" | "register" | "OTP" | "complete";
+  inView: Inview;
   setAuthToken: Dispatch<SetStateAction<string>>;
 }
 

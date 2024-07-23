@@ -7,6 +7,7 @@ function FormInput({
   handleInputs,
   formIncomplete,
   passwordsMatch,
+  loginDetailsError,
 }: FormInputProps) {
   return (
     <input
@@ -22,7 +23,7 @@ function FormInput({
         (passwordsMatch === false && type === "password")
           ? "border-red-600 bg-red-50"
           : ""
-      }`}
+      } ${loginDetailsError && "border-red-600 bg-red-50"}`}
     />
   );
 }
@@ -36,6 +37,7 @@ interface FormInputProps {
   formIncomplete?: boolean;
   handleInputs(e: any): void;
   passwordsMatch?: boolean;
+  loginDetailsError?: boolean;
 }
 
 export default FormInput;
