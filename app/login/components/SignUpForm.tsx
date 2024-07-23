@@ -37,15 +37,24 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
       if (inputs.password === inputs.conf_password) {
         if (inputs.password.length > 5) {
           try {
-            await axios.post("http://localhost:4000/api/auth/request-otp", {
-              email: inputs.email,
-            });
+            const response = await axios.post(
+              "http://localhost:4000/api/auth/request-otp",
+              {
+                email: inputs.email,
+              }
+            );
             setPendingUser(inputs);
             setInview("OTP");
-          } catch (err) {
-            setSendError(true);
-            setErrorMessage("Error connecting to server, try again!");
+          } catch (err: any) {
             console.log(err);
+            if (err.response.status === 402) {
+              setSendError(true);
+              setErrorMessage("Email is already registered!");
+            } else {
+              setSendError(true);
+              setSendError(true);
+              setErrorMessage("Error connecting to server, try again!");
+            }
           }
         } else {
           setSendError(true);

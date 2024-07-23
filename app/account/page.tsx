@@ -1,5 +1,15 @@
+"use client";
+
+import { RootState } from "@store";
+import { useSelector } from "react-redux";
+
 function Account() {
-  return <div>Account</div>;
+  const user = useSelector((state: RootState) => state.global.user);
+  return (
+    <main>
+      <h1>{user.user_name}</h1>
+    </main>
+  );
 }
 
 export default Account;

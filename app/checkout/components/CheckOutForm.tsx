@@ -1,19 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LabeledInput from "./LabeledInput";
 import SelectInput from "./SelectInput";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import { useRouter } from "next/navigation";
 
 function CheckOutForm() {
-  const [inputs, setInputs] = useState({
-    fname: "Ibrahim",
-    lname: "Ahmed",
-    country: "Nigeria",
-    city: "Kaduna",
-    state: "Kaduna",
-    address: "No 1, Kogun Street, NDC",
-    phone: "+2348161615860",
-    email: "ahmed@gmail.com",
-  });
+  const user = useSelector((state: RootState) => state.global.user);
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
+  const [inputs, setInputs] = useState(user);
 
   function handleChange(e: any) {
     const { name, value } = e.target;
@@ -21,6 +17,14 @@ function CheckOutForm() {
       return { ...prev, [name]: value };
     });
   }
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.replace("/login");
+    }
+  }, [isLoggedIn]);
   return (
     <form className="w-full md:w-1/2 checkout_form flex flex-col gap-4">
       <h2 className="text-lg border-b pb-2">Billing details</h2>
@@ -29,14 +33,7 @@ function CheckOutForm() {
           type="text"
           title="First name"
           htmlName="fname"
-          value={inputs.fname}
-          handleChange={handleChange}
-        />
-        <LabeledInput
-          type="text"
-          title="Last name"
-          htmlName="lname"
-          value={inputs.lname}
+          value={inputs.user_name}
           handleChange={handleChange}
         />
       </div>
@@ -79,7 +76,7 @@ function CheckOutForm() {
         type="tel"
         title="Phone"
         htmlName="phone"
-        value={inputs.phone}
+        value={inputs.mobile_no}
         handleChange={handleChange}
       />
 

@@ -7,6 +7,9 @@ import axios from "axios";
 import checkFormComplete from "@utils/checkFormComplete";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { handleLogin } from "@store/globalSlice";
+import { useRouter } from "next/navigation";
 
 function CompleteRegister({
   inView,
@@ -24,6 +27,9 @@ function CompleteRegister({
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formIncomplete, setFormIncomplete] = useState(false);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   function handleInputs(e: any) {
     setError(false);
@@ -59,7 +65,8 @@ function CompleteRegister({
             },
           }
         );
-        console.log(response);
+        dispatch(handleLogin(response.data));
+        router.push("/account");
       } else {
         setError(true);
         setFormIncomplete(true);

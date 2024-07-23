@@ -25,3 +25,13 @@ export interface CartItem {
   price: number;
   quantity: number;
 }
+
+export interface User {
+  user_name: string;
+  email: string;
+  mobile_no: string;
+  country: string;
+  state: string;
+  city: string;
+  address: string;
+}
