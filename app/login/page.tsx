@@ -1,18 +1,24 @@
 "use client";
 import { useState } from "react";
-import { CompleteRegister, LoginForm, SignUpForm } from "./components";
+import {
+  CompleteRegister,
+  LoginForm,
+  ResetOTP,
+  SignUpForm,
+} from "./components";
 import OTP from "./components/OTP";
 import { Inview } from "./types";
 import ForgotEmailForm from "./components/ForgotEmailForm";
 
 function Login() {
-  const [inView, setInView] = useState<Inview>("login");
+  const [inView, setInView] = useState<Inview>("reset-OTP");
   const [pendingUser, setPendingUser] = useState({
     fname: "",
     lname: "",
     email: "",
     password: "",
   });
+  const [passwordResetEmail, setPasswordResetEmail] = useState("");
   const [authToken, setAuthToken] = useState("");
   return (
     <main className="w-full flex">
@@ -21,8 +27,8 @@ function Login() {
           <div
             className={`absolute top-0 left-0 w-full flex justify-center shrink-0 transition duration-150 ${
               inView === "complete"
-                ? "translate-x-0 opacity-1"
-                : "-translate-x-full"
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-full opacity-0"
             }`}
           >
             <h2 className="w-fit text-base md:text-lg font-normal border-b-2 border-site-orange">
@@ -34,9 +40,7 @@ function Login() {
             className={`absolute top-0 left-0 w-full flex justify-center shrink-0 transition duration-150 ${
               inView === "OTP" && "translate-x-0 opacity-100"
             } ${inView === "complete" && "translate-x-full opacity-0"} ${
-              inView === "register" || inView === "login"
-                ? "-translate-x-full opacity-0"
-                : ""
+              inView !== ("OTP" && "complete") && "-translate-x-full opacity-0"
             }`}
           >
             <h2 className="w-fit text-base md:text-lg font-normal border-b-2 border-site-orange">
@@ -46,9 +50,13 @@ function Login() {
 
           <div
             className={`absolute top-0 left-0 w-full shrink-0 flex justify-center gap-8 text-base md:text-lg transition duration-150 ${
-              inView === "login" || inView === "register"
-                ? "translate-x-0 opacity-100"
-                : "translate-x-full opacity-0"
+              (inView === "login" || inView === "register") &&
+              "translate-x-0 opacity-100"
+            } ${inView === "OTP" && "translate-x-full opacity-0"} ${
+              inView !== "OTP" &&
+              inView !== "register" &&
+              inView !== "login" &&
+              "-translate-x-full"
             }`}
           >
             <button
@@ -72,6 +80,20 @@ function Login() {
               Sign In
             </button>
           </div>
+
+          <div
+            className={`absolute top-0 left-0 w-full flex justify-center shrink-0 transition duration-150 ${
+              inView === "forgot-email" && "translate-x-0 opacity-100"
+            } ${inView === "login" && "translate-x-full opacity-0"} ${
+              inView !== "forgot-email" &&
+              inView !== "login" &&
+              "-translate-x-full opacity-0"
+            }`}
+          >
+            <h2 className="w-fit text-base md:text-lg font-normal border-b-2 border-site-orange">
+              Reset password
+            </h2>
+          </div>
         </div>
 
         <div className="flex-1 relative w-full md:max-w-[30em] m-auto flex overflow-x-hidden">
@@ -92,8 +114,17 @@ function Login() {
             setInview={setInView}
           />
           <LoginForm inView={inView} setInView={setInView} />
-
-          <ForgotEmailForm inView={inView} />
+          <ForgotEmailForm
+            inView={inView}
+            setInView={setInView}
+            setPasswordResetEmail={setPasswordResetEmail}
+          />
+          <ResetOTP
+            email={passwordResetEmail}
+            inView={inView}
+            setInView={setInView}
+            setAuthToken={setAuthToken}
+          />
         </div>
       </section>
     </main>

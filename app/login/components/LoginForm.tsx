@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import { Inview } from "../types";
+import SubmitBtn from "./SubmitBtn";
 
 function LoginForm({ inView, setInView }: LoginFormProps) {
   const [inputs, setInputs] = useState({
@@ -98,14 +99,11 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
         </div>
       )}
 
-      <button
-        onClick={handleSubmit}
-        className={`w-full py-3 rounded-md bg-site-orange text-white text-sm md:text-base ${
-          loading && "opacity-40"
-        }`}
-      >
-        {loading ? "LOADING..." : "SIGN IN"}
-      </button>
+      <SubmitBtn
+        title="SIGN IN"
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
       <div>
         <button
           onClick={() => {

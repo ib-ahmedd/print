@@ -6,13 +6,16 @@ import axios from "axios";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
 
-function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
+function ResetOTP({ email, inView, setInView, setAuthToken }: OTPProps) {
   const [input, setInput] = useState("");
-  const [inCorrectOTP, setIncorrectOTP] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [countDown, setCountDown] = useState(10);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
+    setError(false);
+    setErrorMessage("");
     setLoading(true);
     try {
       const response = await axios.post(
@@ -20,18 +23,28 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
         { email: email, code: input }
       );
       setAuthToken(response.data);
-      setInView("complete");
-    } catch (err) {
+      setInView("reset-password");
+    } catch (err: any) {
       console.log(err);
+      if (err.response.status === 404) {
+        setError(true);
+        setErrorMessage("Code incorrect!");
+      } else {
+        setError(true);
+        setErrorMessage("Connection error, try again!");
+      }
     }
     setLoading(false);
   }
 
   async function handleResend() {
+    setError(false);
+    setErrorMessage("");
     try {
       setCountDown(10);
       await axios.post("http://localhost:4000/api/auth/request-otp", {
         email: email,
+        method: "reset-password",
       });
     } catch (err) {
       console.log(err);
@@ -40,7 +53,7 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
-      if (inView === "OTP") {
+      if (inView === "reset-OTP") {
         setCountDown((prev) => (prev > 0 ? prev - 1 : 0));
       } else {
         setCountDown(10);
@@ -56,11 +69,11 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
         e.preventDefault();
       }}
       className={`w-full shrink-0 flex flex-col items-center py-8 gap-4 transition duration-150 absolute top-0 left-0 ${
-        inView !== "complete" &&
-        inView !== "OTP" &&
-        "-translate-x-full opacity-0"
-      } ${inView === "OTP" && "translate-x-0 opacity-100"} ${
-        inView === "complete" && "translate-x-full opacity-0"
+        inView === "reset-password" && "-translate-x-full opacity-0"
+      } ${inView === "reset-OTP" && "translate-x-0 opacity-100"} ${
+        inView !== "reset-OTP" &&
+        inView !== "reset-password" &&
+        "translate-x-full opacity-0"
       }`}
     >
       <h2 className="text-lg font-normal text-center">
@@ -72,16 +85,17 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
         value={input}
         loading={loading}
         handleInputs={(e) => {
-          setIncorrectOTP(false);
+          setError(false);
+          setErrorMessage("");
           setInput(e.target.value);
         }}
         placeholder="Enter Code"
       />
-      {inCorrectOTP && (
+      {error && (
         <div className="w-full relative">
           <div className="absolute w-full h-full bg-red-600 opacity-10 rounded-lg" />
           <p className="text-red-600 font-bold text-sm p-4 flex items-center gap-2">
-            <FontAwesomeIcon icon={faWarning} /> Code incorrect!
+            <FontAwesomeIcon icon={faWarning} /> {errorMessage}
           </p>
         </div>
       )}
@@ -105,7 +119,7 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
         </button>
         <button
           onClick={() => {
-            setInView("register");
+            setInView("forgot-email");
           }}
           className="text-site-orange"
         >
@@ -123,4 +137,4 @@ interface OTPProps {
   setAuthToken: Dispatch<SetStateAction<string>>;
 }
 
-export default OTP;
+export default ResetOTP;

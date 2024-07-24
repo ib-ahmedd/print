@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
 import { Inview } from "../types";
+import SubmitBtn from "./SubmitBtn";
 
 function CompleteRegister({
   inView,
@@ -84,7 +85,6 @@ function CompleteRegister({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        handleSubmit();
       }}
       className={`w-full shrink-0 flex flex-col items-center py-8 gap-4 transition duration-150 absolute top-0 left-0 ${
         inView !== "complete" && "-translate-x-full opacity-0"
@@ -147,14 +147,11 @@ function CompleteRegister({
         </div>
       )}
 
-      <button
-        disabled={loading}
-        className={`w-full py-3 rounded-md bg-site-orange text-white text-sm md:text-base ${
-          loading && "opacity-40"
-        }`}
-      >
-        {loading ? "LOADING..." : "SIGN UP"}
-      </button>
+      <SubmitBtn
+        title="SIGN UP"
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
       <span className="text-center text-sm">
         <p>By signing up, you agreee to our</p>
         <Link href="/terms" className="text-site-orange">

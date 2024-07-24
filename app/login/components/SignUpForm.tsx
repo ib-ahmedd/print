@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import FormInput from "./FormInput";
 import axios from "axios";
 import { Inview } from "../types";
+import SubmitBtn from "./SubmitBtn";
 
 function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
   const [inputs, setInputs] = useState({
@@ -42,6 +43,7 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
               "http://localhost:4000/api/auth/request-otp",
               {
                 email: inputs.email,
+                method: "register",
               }
             );
             setPendingUser(inputs);
@@ -78,7 +80,7 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
     <form
       className={`login_form w-full shrink-0 transition duration-150 absolute top-0 left-0 flex flex-col gap-4 py-8 ${
         inView === "register" && "translate-x-0 opacity-100"
-      } ${inView !== "OTP" && "translate-x-full opacity-0"} ${
+      } ${inView === "OTP" && "translate-x-full opacity-0"} ${
         inView !== "register" &&
         inView !== "OTP" &&
         "-translate-x-full opacity-0"
@@ -143,14 +145,11 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
           </p>
         </div>
       )}
-      <button
-        disabled={loading}
-        className={`w-full py-3 rounded-md bg-site-orange text-white text-sm md:text-base ${
-          loading && "opacity-40"
-        }`}
-      >
-        {loading ? "LOADING..." : "REGISTER"}
-      </button>
+      <SubmitBtn
+        title="REGISTER"
+        loading={loading}
+        handleSubmit={handleSubmit}
+      />
     </form>
   );
 }
