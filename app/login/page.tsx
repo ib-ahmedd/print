@@ -4,6 +4,7 @@ import {
   CompleteRegister,
   LoginForm,
   ResetOTP,
+  ResetPassword,
   SignUpForm,
 } from "./components";
 import OTP from "./components/OTP";
@@ -11,7 +12,7 @@ import { Inview } from "./types";
 import ForgotEmailForm from "./components/ForgotEmailForm";
 
 function Login() {
-  const [inView, setInView] = useState<Inview>("reset-OTP");
+  const [inView, setInView] = useState<Inview>("login");
   const [pendingUser, setPendingUser] = useState({
     fname: "",
     lname: "",
@@ -83,11 +84,11 @@ function Login() {
 
           <div
             className={`absolute top-0 left-0 w-full flex justify-center shrink-0 transition duration-150 ${
-              inView === "forgot-email" && "translate-x-0 opacity-100"
-            } ${inView === "login" && "translate-x-full opacity-0"} ${
-              inView !== "forgot-email" &&
-              inView !== "login" &&
-              "-translate-x-full opacity-0"
+              inView === "forgot-email" ||
+              inView === "reset-OTP" ||
+              inView === "reset-password"
+                ? "translate-x-0 opacity-100"
+                : "translate-x-full opacity-0"
             }`}
           >
             <h2 className="w-fit text-base md:text-lg font-normal border-b-2 border-site-orange">
@@ -124,6 +125,12 @@ function Login() {
             inView={inView}
             setInView={setInView}
             setAuthToken={setAuthToken}
+          />
+          <ResetPassword
+            email={passwordResetEmail}
+            authToken={authToken}
+            inView={inView}
+            setInView={setInView}
           />
         </div>
       </section>

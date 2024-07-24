@@ -5,8 +5,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
 import ErrorDisplay from "./ErrorDisplay";

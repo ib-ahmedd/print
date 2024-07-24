@@ -5,8 +5,6 @@ import { nigerianStatesArray } from "../constants";
 import Link from "next/link";
 import axios from "axios";
 import checkFormComplete from "@utils/checkFormComplete";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
@@ -82,6 +80,7 @@ function CompleteRegister({
     }
     setLoading(false);
   }
+
   return (
     <form
       onSubmit={(e) => {

@@ -1,5 +1,3 @@
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import checkFormComplete from "@utils/checkFormComplete";
 import { Dispatch, SetStateAction, useState } from "react";
 import FormInput from "./FormInput";

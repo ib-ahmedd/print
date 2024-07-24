@@ -12,7 +12,6 @@ function FormInput({
   return (
     <input
       type={type}
-      id={name}
       name={name}
       placeholder={placeholder}
       value={value}

@@ -31,8 +31,8 @@ function CheckOutForm() {
       <div className="flex gap-8 justify-between">
         <LabeledInput
           type="text"
-          title="First name"
-          htmlName="fname"
+          title="Name"
+          htmlName="name"
           value={inputs.user_name}
           handleChange={handleChange}
         />

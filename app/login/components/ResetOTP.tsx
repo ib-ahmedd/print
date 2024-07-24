@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import FormInput from "./FormInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";

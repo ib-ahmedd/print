@@ -10,7 +10,6 @@ function SelectInput({
   return (
     <select
       value={value}
-      id={name}
       name={name}
       onChange={handleInputs}
       disabled={loading}

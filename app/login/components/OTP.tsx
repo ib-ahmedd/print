@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import FormInput from "./FormInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
@@ -41,6 +39,7 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
       setCountDown(10);
       await axios.post("http://localhost:4000/api/auth/request-otp", {
         email: email,
+        method: "register",
       });
     } catch (err) {
       console.log(err);
