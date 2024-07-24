@@ -5,12 +5,15 @@ import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
+import ErrorDisplay from "./ErrorDisplay";
 
 function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
   const [input, setInput] = useState("");
   const [inCorrectOTP, setIncorrectOTP] = useState(false);
   const [countDown, setCountDown] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit() {
     setLoading(true);
@@ -21,8 +24,14 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
       );
       setAuthToken(response.data);
       setInView("complete");
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      setError(true);
+      if (err.response.status === 404) {
+        setErrorMessage("Incorrect code!");
+      } else {
+        setErrorMessage("Connection error, try again!");
+      }
     }
     setLoading(false);
   }
@@ -77,14 +86,7 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
         }}
         placeholder="Enter Code"
       />
-      {inCorrectOTP && (
-        <div className="w-full relative">
-          <div className="absolute w-full h-full bg-red-600 opacity-10 rounded-lg" />
-          <p className="text-red-600 font-bold text-sm p-4 flex items-center gap-2">
-            <FontAwesomeIcon icon={faWarning} /> Code incorrect!
-          </p>
-        </div>
-      )}
+      {error && <ErrorDisplay errorMessage={errorMessage} />}
       <SubmitBtn
         title="VERIFY EMAIL"
         loading={loading}

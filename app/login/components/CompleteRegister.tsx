@@ -12,6 +12,7 @@ import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
+import ErrorDisplay from "./ErrorDisplay";
 
 function CompleteRegister({
   inView,
@@ -138,14 +139,7 @@ function CompleteRegister({
         }`}
       />
 
-      {error && (
-        <div className="w-full relative">
-          <div className="absolute w-full h-full bg-red-600 opacity-10 rounded-lg" />
-          <p className="text-red-600 font-bold text-sm p-4 flex items-center gap-2">
-            <FontAwesomeIcon icon={faWarning} /> {errorMessage}
-          </p>
-        </div>
-      )}
+      {error && <ErrorDisplay errorMessage={errorMessage} />}
 
       <SubmitBtn
         title="SIGN UP"

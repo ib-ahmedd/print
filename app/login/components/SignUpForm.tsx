@@ -6,6 +6,7 @@ import FormInput from "./FormInput";
 import axios from "axios";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
+import ErrorDisplay from "./ErrorDisplay";
 
 function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
   const [inputs, setInputs] = useState({
@@ -17,14 +18,14 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
   });
 
   const [formIncomplete, setFormIncomplete] = useState(false);
-  const [sendError, setSendError] = useState(false);
+  const [error, setError] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   function handleInputs(e: any) {
     setFormIncomplete(false), setPasswordsMatch(true), setErrorMessage("");
-    setSendError(false);
+    setError(false);
     const { name, value } = e.target;
     setInputs((prev) => {
       return { ...prev, [name]: value };
@@ -33,7 +34,7 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
 
   async function handleSubmit() {
     setLoading(true);
-    setSendError(false);
+    setError(false);
     setFormIncomplete(false);
     if (checkFormComplete(inputs, 5)) {
       if (inputs.password === inputs.conf_password) {
@@ -51,26 +52,25 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
           } catch (err: any) {
             console.log(err);
             if (err.response.status === 402) {
-              setSendError(true);
+              setError(true);
               setErrorMessage("Email is already registered!");
             } else {
-              setSendError(true);
-              setSendError(true);
+              setError(true);
               setErrorMessage("Error connecting to server, try again!");
             }
           }
         } else {
-          setSendError(true);
+          setError(true);
           setErrorMessage("Password should contain 6 or more characters!");
           setPasswordsMatch(false);
         }
       } else {
-        setSendError(true);
+        setError(true);
         setPasswordsMatch(false);
         setErrorMessage("Passwords do not match!");
       }
     } else {
-      setSendError(true);
+      setError(true);
       setFormIncomplete(true);
       setErrorMessage("Fill all input fields!");
     }
@@ -137,14 +137,7 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
         passwordsMatch={passwordsMatch}
         loading={loading}
       />
-      {sendError && (
-        <div className="relative">
-          <div className="absolute w-full h-full bg-red-600 opacity-10 rounded-lg" />
-          <p className="text-red-600 font-bold text-sm p-4 flex items-center gap-2">
-            <FontAwesomeIcon icon={faWarning} /> {errorMessage}
-          </p>
-        </div>
-      )}
+      {error && <ErrorDisplay errorMessage={errorMessage} />}
       <SubmitBtn
         title="REGISTER"
         loading={loading}
