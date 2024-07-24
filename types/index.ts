@@ -35,3 +35,7 @@ export interface User {
   city: string;
   address: string;
 }
+
+export interface LayoutProps {
+  children: React.ReactNode;
+}

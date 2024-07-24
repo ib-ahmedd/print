@@ -5,13 +5,14 @@ import { Footer, Navbar } from "./components";
 import ReduxProvider from "@store/ReduxProvider";
 import NavCart from "./nav-cart/NavCart";
 import ScreenCover from "@components/ScreenCover";
+import { LayoutProps } from "@types";
 
 export const metadata = {
   title: "Home - Custom Printing",
   description: "We print what you want",
 };
 
-const RootLayout = ({ children }: RootLayoutProps) => {
+const RootLayout = ({ children }: LayoutProps) => {
   return (
     <html lang="en" className="w-full overflow-x-hidden scroll-smooth">
       <Head>
@@ -31,7 +32,3 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 };
 
 export default RootLayout;
-
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
