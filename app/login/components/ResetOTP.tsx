@@ -25,7 +25,7 @@ function ResetOTP({ email, inView, setInView, setAuthToken }: OTPProps) {
       setInView("reset-password");
     } catch (err: any) {
       console.log(err);
-      if (err.response.status === 404) {
+      if (err.response?.status === 404) {
         setError(true);
         setErrorMessage("Code incorrect!");
       } else {

@@ -25,7 +25,7 @@ function OTP({ email, inView, setInView, setAuthToken }: OTPProps) {
     } catch (err: any) {
       console.log(err);
       setError(true);
-      if (err.response.status === 404) {
+      if (err.response?.status === 404) {
         setErrorMessage("Incorrect code!");
       } else {
         setErrorMessage("Connection error, try again!");

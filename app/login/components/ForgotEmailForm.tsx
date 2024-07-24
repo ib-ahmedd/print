@@ -27,7 +27,7 @@ function ForgotEmailForm({
     } catch (err: any) {
       console.log(err);
       setError(true);
-      if (err.response.status === 404) {
+      if (err.response?.status === 404) {
         setErrorMessage("Email is not registered!");
       } else {
         setErrorMessage("Connection error, try again!");

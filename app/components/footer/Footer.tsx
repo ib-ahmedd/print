@@ -1,3 +1,4 @@
+"use client";
 import {
   faFacebook,
   faInstagram,
@@ -6,10 +7,21 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function Footer() {
+  const [hidden, setHidden] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname === "/login") {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  }, [pathname]);
   return (
-    <footer className="bg-site-blue text-white">
+    <footer className={`bg-site-blue text-white ${hidden && "hidden"}`}>
       <section className="flex-col sm:flex-row flex-wrap gap-8 py-20">
         <div>
           <h3>Custom Print Store</h3>

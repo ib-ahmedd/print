@@ -46,15 +46,15 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
       }
     } catch (err: any) {
       console.log(err);
-      if (err.response.status === 401) {
+      if (err.response?.status === 401) {
         setError(true);
         setErrorMessage("Incorrect username or password");
       } else {
         setError(true);
         setErrorMessage("Connection error, try again!");
       }
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (

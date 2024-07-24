@@ -23,8 +23,8 @@ function Login() {
   const [authToken, setAuthToken] = useState("");
   return (
     <main className="w-full flex">
-      <section className="h-[50em] flex-col items-center py-8">
-        <div className="w-full md:max-w-[30em] relative overflow-x-hidden h-8">
+      <section className="h-[40em] flex-col items-center pt-8">
+        <div className="w-full md:max-w-[30em] relative overflow-x-hidden h-8 mt-0">
           <div
             className={`absolute top-0 left-0 w-full flex justify-center shrink-0 transition duration-150 ${
               inView === "complete"
@@ -97,7 +97,7 @@ function Login() {
           </div>
         </div>
 
-        <div className="flex-1 relative w-full md:max-w-[30em] m-auto flex overflow-x-hidden">
+        <div className="flex-1 relative w-full md:max-w-[30em] m-auto flex items-center overflow-x-hidden">
           <CompleteRegister
             inView={inView}
             pendingUser={pendingUser}

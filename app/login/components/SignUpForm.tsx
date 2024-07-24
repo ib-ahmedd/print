@@ -49,13 +49,14 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
             setInview("OTP");
           } catch (err: any) {
             console.log(err);
-            if (err.response.status === 402) {
+            if (err.response?.status === 402) {
               setError(true);
               setErrorMessage("Email is already registered!");
             } else {
               setError(true);
               setErrorMessage("Error connecting to server, try again!");
             }
+            setLoading(false);
           }
         } else {
           setError(true);
@@ -72,7 +73,6 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
       setFormIncomplete(true);
       setErrorMessage("Fill all input fields!");
     }
-    setLoading(false);
   }
   return (
     <form

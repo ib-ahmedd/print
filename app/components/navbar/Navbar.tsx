@@ -21,6 +21,7 @@ import { itemsCount, subtotal } from "@utils/subtotal";
 function Navbar() {
   const [accountLinksOpen, setAccountLinksOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [gradientBg, setGradientBg] = useState(true);
   const pathname = usePathname();
 
@@ -32,12 +33,16 @@ function Navbar() {
   useEffect(() => {
     setNavOpen(false);
     setAccountLinksOpen(false);
-    if (pathname === "/shop" || pathname === "/cart") {
-      setGradientBg(false);
-    } else if (pathname.includes("/product")) {
-      setGradientBg(false);
-    } else {
+    if (pathname === "/contact" || pathname === "/" || pathname === "/about") {
       setGradientBg(true);
+    } else {
+      setGradientBg(false);
+    }
+
+    if (pathname === "/login") {
+      setNavHidden(true);
+    } else {
+      setNavHidden(false);
     }
   }, [pathname]);
   return (
@@ -46,7 +51,24 @@ function Navbar() {
         gradientBg && "md:bg-gradient-to-r from-[#FFFFFF00] to-[#EBEDEFDE]"
       }`}
     >
-      <div className="flex justify-between py-6 w-full">
+      <div
+        className={`w-full justify-center items-center py-4 ${
+          navHidden ? "flex" : "hidden"
+        }`}
+      >
+        <Link href="/" className="relative w-24 md:w-32 h-8 md:h-14">
+          <Image
+            src="/images/logo/logo.svg"
+            alt="print logo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </Link>
+      </div>
+      <div
+        className={`flex justify-between py-6 w-full ${navHidden && "hidden"}`}
+      >
         <Link href="/" className="relative w-24 md:w-32 h-8 md:h-14">
           <Image
             src="/images/logo/logo.svg"
@@ -65,7 +87,9 @@ function Navbar() {
             <div className="relative">
               <div
                 className={`z-20 text-site-blue flex items-center gap-2 cursor-pointer ${
-                  pathname === "/account" || pathname === "/cart" || "/login"
+                  pathname === "/account" ||
+                  pathname === "/cart" ||
+                  pathname === "/login"
                     ? "text-site-orange"
                     : "text-site-blue hover:text-navlink-hover"
                 }`}
