@@ -1,5 +1,6 @@
 import { LayoutProps } from "@types";
 import React from "react";
+import { SideBar } from "./components";
 
 export const metadata = {
   title: "Account - Custom Printing",
@@ -7,7 +8,12 @@ export const metadata = {
 };
 
 const AccountLayout = ({ children }: LayoutProps) => {
-  return <>{children}</>;
+  return (
+    <>
+      <SideBar />
+      {children}
+    </>
+  );
 };
 
 export default AccountLayout;

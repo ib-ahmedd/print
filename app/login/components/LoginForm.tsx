@@ -2,12 +2,14 @@ import { Dispatch, SetStateAction, useState } from "react";
 import FormInput from "./FormInput";
 import checkFormComplete from "@utils/checkFormComplete";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
 import ErrorDisplay from "./ErrorDisplay";
+import { RootState } from "@store";
+import { clearNoLog } from "@store/cartSlice";
 
 function LoginForm({ inView, setInView }: LoginFormProps) {
   const [inputs, setInputs] = useState({
@@ -20,6 +22,7 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const router = useRouter();
 
   function handleInputs(e: any) {
@@ -41,8 +44,31 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
           "http://localhost:4000/api/auth/login",
           inputs
         );
-        dispatch(handleLogin(response.data));
-        router.push("/account");
+
+        let postedItems = 0;
+        if (cartItems.length > 0) {
+          cartItems.forEach(async (item) => {
+            await axios.post(
+              "http://localhost:4000/api/add-item",
+              { ...item, user_id: response.data.user._id },
+              {
+                headers: {
+                  Authorization: `Bearer ${response.data.accessToken}`,
+                },
+              }
+            );
+            postedItems = postedItems + 1;
+            if (postedItems === cartItems.length) {
+              dispatch(clearNoLog());
+              dispatch(handleLogin(response.data));
+              router.push("/account");
+            }
+          });
+        } else {
+          dispatch(clearNoLog());
+          dispatch(handleLogin(response.data));
+          router.push("/account");
+        }
       }
     } catch (err: any) {
       console.log(err);

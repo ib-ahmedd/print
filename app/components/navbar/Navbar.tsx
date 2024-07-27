@@ -25,7 +25,7 @@ function Navbar() {
   const [gradientBg, setGradientBg] = useState(true);
   const pathname = usePathname();
 
-  const cartItems = useSelector((state: RootState) => state.cart.cartitems);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
 
   const dispatch = useDispatch();

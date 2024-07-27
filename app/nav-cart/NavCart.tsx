@@ -1,27 +1,34 @@
 "use client";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { RootState } from "@store";
+import { AppDispatch, RootState } from "@store";
 import { toggleNavCart } from "@store/globalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import NavCartItem from "./components/NavCartItem";
 import { subtotal } from "@utils/subtotal";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { get } from "@store/cartSlice";
+import { useEffect } from "react";
+import { getNoLog, getUserCart } from "@store/cartSlice";
+import { NavCartItemSkeleton, NavCartItem } from "./components";
 
 function NavCart() {
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartLoading = useSelector((state: RootState) => state.cart.loading);
   const cartOpen = useSelector((state: RootState) => state.global.navCartOpen);
-  const cartItems = useSelector((state: RootState) => state.cart.cartitems);
-  const [appLoaded, setAppLoaded] = useState(false);
-  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
+  const user = useSelector((state: RootState) => state.global.user);
+  const accessToken = useSelector(
+    (state: RootState) => state.global.accessToken
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (!appLoaded) {
-      dispatch(get());
-      setAppLoaded(true);
+    if (isLoggedIn) {
+      dispatch(getUserCart({ userId: user._id, accessToken: accessToken }));
+    } else {
+      dispatch(getNoLog());
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <aside
@@ -59,9 +66,17 @@ function NavCart() {
       {cartItems.length > 0 && (
         <>
           <div className="h-[64%] overflow-y-auto px-4">
-            {cartItems.map((item) => (
-              <NavCartItem key={item._id} {...item} />
-            ))}
+            {!cartLoading &&
+              cartItems.map((item) => (
+                <NavCartItem
+                  key={item._id}
+                  {...item}
+                  accessToken={accessToken}
+                  isLoggedIn={isLoggedIn}
+                />
+              ))}
+            {cartLoading &&
+              cartItems.map((item) => <NavCartItemSkeleton key={item._id} />)}
           </div>
 
           <div className="w-full border-y flex items-center justify-between px-4 h-[8%]">
@@ -77,7 +92,7 @@ function NavCart() {
               VIEW CART
             </Link>
             <Link
-              href="/checkout"
+              href={isLoggedIn ? "/checkout" : "/login"}
               className="bg-site-orange text-white w-full py-2 rounded-md"
             >
               CHECKOUT

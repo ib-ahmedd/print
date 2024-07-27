@@ -4,34 +4,44 @@ import { fallBackProduct } from "@constants";
 import useGetProducts from "@hooks/useGetProducts";
 import { CartItem, ProductsType } from "@types";
 import { useParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageSkeleton from "./components/PageSkeleton";
 import { percentage } from "@utils/percentage";
 import Sale from "@components/Sale";
-import { useDispatch } from "react-redux";
-import { add } from "@store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addNoLog, addToCartLogged, clearItemAdded } from "@store/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import SetQuantity from "@components/SetQuantity";
+import { AppDispatch, RootState } from "@store";
 
 function ProductPage() {
   const { id } = useParams();
 
   const [descOnScreen, setDescOnScreen] = useState(true);
-  const [addLoading, setAddLoading] = useState(false);
-  const [cartAdded, setCartAdded] = useState(false);
   const [productQuantity, setProductQuantity] = useState<number>(1);
-  const { products, loading } = useGetProducts(`/product/${id}`);
+  const { products, loading: pageLoading } = useGetProducts(`/product/${id}`);
   const addedQuantity = useRef(0);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
+  // --------------global state---------------
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
+  const user = useSelector((state: RootState) => state.global.user);
+  const accessToken = useSelector(
+    (state: RootState) => state.global.accessToken
+  );
+
+  // --------------cart state---------------
+  const added = useSelector((state: RootState) => state.cart.added);
+  const loading = useSelector((state: RootState) => state.cart.adding);
 
   const {
     product,
     relatedProducts,
   }: { product: ProductsType; relatedProducts: ProductsType[] } =
-    !loading && products;
+    !pageLoading && products;
 
   const {
     _id,
@@ -45,19 +55,40 @@ function ProductPage() {
 
   const cartItemBuild: CartItem = {
     _id,
+    product_id: _id,
     price,
     product_image,
     product_name,
     quantity: productQuantity,
   };
 
+  async function handleAddToCart() {
+    if (isLoggedIn) {
+      dispatch(
+        addToCartLogged({
+          item: { ...cartItemBuild, user_id: user._id },
+          accessToken: accessToken,
+        })
+      );
+    } else {
+      dispatch(addNoLog(cartItemBuild));
+    }
+    addedQuantity.current = productQuantity;
+  }
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearItemAdded());
+    };
+  }, []);
+
   return (
     <main className="py-0 sm:py-8 xl:py-16 bg-gray-100 px-0 sm:px-4 md:px-8 xl:px-32">
-      {loading && <PageSkeleton />}
+      {pageLoading && <PageSkeleton />}
 
-      {!loading && (
+      {!pageLoading && (
         <section className="flex-col gap-12 py-20 px-4 md:px-8 xl:px-24 bg-white">
-          {cartAdded && (
+          {added && (
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t-4 border-site-orange p-4 md:p-6 bg-gray-50">
               <div className="flex items-center justify-between gap-4">
                 <span className="w-5 h-5 flex items-center justify-center rounded-full bg-site-orange text-white text-sm">
@@ -115,12 +146,11 @@ function ProductPage() {
                   setProductQuantity={setProductQuantity}
                 />
                 <button
-                  onClick={() => {
-                    setCartAdded(true);
-                    addedQuantity.current = productQuantity;
-                    dispatch(add(cartItemBuild));
-                  }}
-                  className="px-10 py-2 text-white bg-site-orange rounded-md text-sm md:text-base"
+                  disabled={loading}
+                  onClick={handleAddToCart}
+                  className={`px-10 py-2 text-white bg-site-orange rounded-md text-sm md:text-base ${
+                    loading && "opacity-40"
+                  }`}
                 >
                   ADD TO CART
                 </button>
@@ -167,7 +197,7 @@ function ProductPage() {
           <div className="flex flex-col gap-4">
             <h2>Related products</h2>
             <div className="flex gap-[4%] md:gap-4 flex-wrap">
-              {!loading &&
+              {!pageLoading &&
                 relatedProducts.map((item) => (
                   <Product key={item._id} {...item} notShop />
                 ))}

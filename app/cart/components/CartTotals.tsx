@@ -9,6 +9,7 @@ function CartTotals() {
   const cartItems: CartItem[] = useSelector(
     (state: RootState) => state.cart.cartitems
   );
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
   return (
     <article className="mt-8 w-full md:w-[35em] border border-gray-300 flex flex-col gap-4">
       <h2 className="text-base md:text-xl w-full p-3 border-b border-gray-300 bg-gray-50">
@@ -25,7 +26,7 @@ function CartTotals() {
         </span>
 
         <Link
-          href="/checkout"
+          href={isLoggedIn ? "/checkout" : "/login"}
           className="w-full text-center py-4 rounded-md bg-site-orange hover:bg-site-orange-hover text-white"
         >
           PROCEED TO CHECKOUT

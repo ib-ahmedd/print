@@ -1,16 +1,20 @@
-import { remove } from "@store/cartSlice";
+import { AppDispatch } from "@store";
+import { deleteItem, removeNoLog } from "@store/cartSlice";
 import { CartItem } from "@types";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
 function NavCartItem({
   _id,
+  product_id,
   product_image,
   product_name,
   price,
   quantity,
-}: CartItem) {
-  const dispatch = useDispatch();
+  accessToken,
+  isLoggedIn,
+}: NavCartItemProps) {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <article className="flex gap-2 h-fit py-3 border-b shrink-0">
       <img
@@ -20,7 +24,7 @@ function NavCartItem({
       />
 
       <div className="flex flex-col flex-1">
-        <Link href={`/product/${_id}`} className="text-sm md:text-base">
+        <Link href={`/product/${product_id}`} className="text-sm md:text-base">
           {product_name}
         </Link>
         <p className="text-sm md:text-base">
@@ -30,7 +34,11 @@ function NavCartItem({
 
       <button
         onClick={() => {
-          dispatch(remove(_id));
+          if (isLoggedIn) {
+            dispatch(deleteItem({ itemId: _id, accessToken }));
+          } else {
+            dispatch(removeNoLog(_id));
+          }
         }}
         className="w-5 h-5 flex items-center justify-center border border-gray-500 rounded-full text-gray-500 text-xl"
       >
@@ -38,6 +46,11 @@ function NavCartItem({
       </button>
     </article>
   );
+}
+
+interface NavCartItemProps extends CartItem {
+  accessToken: string;
+  isLoggedIn: boolean;
 }
 
 export default NavCartItem;

@@ -18,8 +18,9 @@ export interface ProductsType {
 }
 
 export interface CartItem {
-  userId?: string;
-  _id: string;
+  _id: string
+  user_id?: string;
+  product_id: string;
   product_name: string;
   product_image: string;
   price: number;
@@ -27,6 +28,7 @@ export interface CartItem {
 }
 
 export interface User {
+  _id: string;
   user_name: string;
   email: string;
   mobile_no: string;
