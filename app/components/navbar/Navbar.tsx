@@ -67,7 +67,9 @@ function Navbar() {
         </Link>
       </div>
       <div
-        className={`flex justify-between py-6 w-full ${navHidden && "hidden"}`}
+        className={`flex justify-between py-6 w-full bg-white z-30 ${
+          navHidden && "hidden"
+        }`}
       >
         <Link href="/" className="relative w-24 md:w-32 h-8 md:h-14">
           <Image
@@ -169,42 +171,19 @@ function Navbar() {
       {/* --------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */}
-      <div className="md:hidden absolute top-20 left-0 w-full overflow-y-hidden z-20">
-        <div
-          className={`flex flex-col w-full bg-white text-sm border-t transition duration-150 ${
-            navOpen ? "translate-y-0" : "-translate-y-full"
-          }`}
-        >
+      <div
+        className={`md:hidden absolute top-20 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 shadow-md ${
+          navOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className={`flex flex-col w-full bg-white text-sm border-t `}>
           <span className="flex flex-col z-10">
             {navLinksArray.map((item) => (
               <NavLink key={item.title} {...item} />
             ))}
+            <NavLink title="MY ACCOUNT" path="/account" />
+            <NavLink title="CART" path="/cart" />
           </span>
-          <div
-            className={`z-10 bg-white ${
-              pathname === "/account" || pathname === "/cart"
-                ? "text-site-orange"
-                : "text-site-blue hover:text-navlink-hover"
-            } flex items-center justify-between gap-2 cursor-pointer px-4 py-3 border-b`}
-            onClick={() => {
-              setAccountLinksOpen((prev) => !prev);
-            }}
-          >
-            <span>ACCOUNT</span>
-            <div className="h-4 w-4">
-              <FontAwesomeIcon
-                icon={accountLinksOpen ? faAngleUp : faAngleDown}
-              />
-            </div>
-          </div>
-          <div
-            className={`flex flex-col transition duration-150 ${
-              accountLinksOpen ? "translate-y-0" : "-translate-y-full"
-            }`}
-          >
-            <NavLink title="MY ACCOUNT" path="/account" icon />
-            <NavLink title="CART" path="/cart" icon />
-          </div>
         </div>
       </div>
     </nav>
