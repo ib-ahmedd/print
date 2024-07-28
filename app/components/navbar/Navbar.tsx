@@ -67,7 +67,7 @@ function Navbar() {
         </Link>
       </div>
       <div
-        className={`flex justify-between py-6 w-full bg-white z-30 ${
+        className={`flex justify-between py-6 w-full bg-white md:bg-transparent z-30 ${
           navHidden && "hidden"
         }`}
       >
@@ -172,8 +172,8 @@ function Navbar() {
       /* ---------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */}
       <div
-        className={`md:hidden absolute top-20 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 shadow-md ${
-          navOpen ? "translate-y-0" : "-translate-y-full"
+        className={`md:hidden absolute top-20 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 ${
+          navOpen ? "translate-y-0 shadow-md" : "-translate-y-full"
         }`}
       >
         <div className={`flex flex-col w-full bg-white text-sm border-t `}>
