@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem } from "@types";
+import { AlteredItems, CartItem } from "@types";
 import { deleteCookie, getCookie, setCookie } from "@utils/cookies";
 import axios from "axios";
 
@@ -10,6 +10,8 @@ const initialState: InitialState = {
   loading: true,
   error: false,
   errorMessage: "",
+  cartAltered: false,
+  cartUpdated: false,
 };
 
 export const addToCartLogged = createAsyncThunk(
@@ -24,7 +26,6 @@ export const addToCartLogged = createAsyncThunk(
         },
       }
     );
-    console.log(response.data);
     return response.data;
   }
 );
@@ -92,6 +93,8 @@ const cartSlice = createSlice({
       state.items = state.items.filter(() => {});
       payload.forEach((item) => state.items.push(item));
       setCookie("CartItems", JSON.stringify(state.items), 1);
+      state.cartAltered = false;
+      state.cartUpdated = true;
     },
     clearItemAdded: (state) => {
       state.added = false;
@@ -99,6 +102,28 @@ const cartSlice = createSlice({
     clearNoLog: (state) => {
       state.items = state.items.filter(() => {});
       deleteCookie("CartItems");
+    },
+    mergeCartItems: (state, action: PayloadAction<AlteredItems[]>) => {
+      const { payload } = action;
+      state.items = state.items.map((item) => {
+        payload.forEach((alteredItem) => {
+          if (alteredItem._id === item._id) {
+            item.quantity = alteredItem.quantity;
+          }
+        });
+        return item;
+      });
+      state.cartAltered = false;
+      state.cartUpdated = true;
+    },
+    cartLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    cartAltered: (state, action: PayloadAction<boolean>) => {
+      state.cartAltered = action.payload;
+    },
+    cartUpdated: (state, action: PayloadAction<boolean>) => {
+      state.cartUpdated = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -145,10 +170,12 @@ const cartSlice = createSlice({
     builder
       .addCase(deleteItem.pending, (state) => {
         state.loading = true;
+        state.cartUpdated = false;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
         const { payload } = action;
         state.items = state.items.filter((item) => item._id !== payload);
+        state.cartUpdated = true;
         state.loading = false;
       })
       .addCase(deleteItem.rejected, (state, action) => {
@@ -164,6 +191,8 @@ interface InitialState {
   error: boolean;
   adding: boolean;
   errorMessage: string | undefined;
+  cartAltered: boolean;
+  cartUpdated: boolean;
 }
 
 export const {
@@ -173,6 +202,10 @@ export const {
   updateNoLog,
   clearNoLog,
   clearItemAdded,
+  mergeCartItems,
+  cartAltered,
+  cartUpdated,
+  cartLoading,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

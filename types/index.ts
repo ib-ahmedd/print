@@ -18,7 +18,7 @@ export interface ProductsType {
 }
 
 export interface CartItem {
-  _id: string
+  _id: string;
   user_id?: string;
   product_id: string;
   product_name: string;
@@ -40,4 +40,9 @@ export interface User {
 
 export interface LayoutProps {
   children: React.ReactNode;
+}
+
+export interface AlteredItems {
+  _id: string;
+  quantity: number;
 }

@@ -1,10 +1,11 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { remove } from "@store/cartSlice";
-import { CartItem } from "@types";
+import { deleteItem, removeNoLog } from "@store/cartSlice";
+import { AlteredItems, CartItem } from "@types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SetQuantity from "./SetQuantity";
+import { AppDispatch, RootState } from "@store";
 
 function MobileTableItem({
   _id,
@@ -12,11 +13,15 @@ function MobileTableItem({
   product_name,
   price,
   quantity,
-  setTableAltered,
   setTableData,
-  setCartUpdated,
+  alteredItems,
+  setAlteredItems,
 }: MobileTableItemProps) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
+  const accessToken = useSelector(
+    (state: RootState) => state.global.accessToken
+  );
 
   return (
     <>
@@ -25,8 +30,11 @@ function MobileTableItem({
           <span className="flex justify-end p-2">
             <button
               onClick={() => {
-                dispatch(remove(_id));
-                setCartUpdated(true);
+                if (isLoggedIn) {
+                  dispatch(deleteItem({ itemId: _id, accessToken }));
+                } else {
+                  dispatch(removeNoLog(_id));
+                }
               }}
               className="w-5 h-5 rounded-full flex items-center justify-center border border-gray-400 text-gray-400 text-sm"
             >
@@ -66,8 +74,8 @@ function MobileTableItem({
               id={_id}
               productQuantity={quantity}
               setTableData={setTableData}
-              setTableAltered={setTableAltered}
-              setCartUpdated={setCartUpdated}
+              alteredItems={alteredItems}
+              setAlteredItems={setAlteredItems}
             />
           </div>
         </td>
@@ -85,9 +93,9 @@ function MobileTableItem({
 }
 
 interface MobileTableItemProps extends CartItem {
-  setTableAltered: Dispatch<SetStateAction<boolean>>;
-  setCartUpdated: Dispatch<SetStateAction<boolean>>;
   setTableData: Dispatch<SetStateAction<CartItem[]>>;
+  alteredItems: AlteredItems[];
+  setAlteredItems: Dispatch<SetStateAction<AlteredItems[]>>;
 }
 
 export default MobileTableItem;

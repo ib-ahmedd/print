@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 function CartTotals() {
   const cartItems: CartItem[] = useSelector(
-    (state: RootState) => state.cart.cartitems
+    (state: RootState) => state.cart.items
   );
   const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
   return (
