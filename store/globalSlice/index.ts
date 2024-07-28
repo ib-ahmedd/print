@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@types";
+import { setCookie } from "@utils/cookies";
 
 const initialState: InitialState = {
   user: {
+    _id: "",
     user_name: "",
     email: "",
     mobile_no: "",
@@ -28,7 +30,6 @@ const globalSlice = createSlice({
       action: PayloadAction<{ accessToken: string; user: User }>
     ) => {
       const { payload } = action;
-      console.log(payload);
       state.user = { ...state.user, ...payload.user };
       state.accessToken = payload.accessToken;
       state.isLoggedIn = true;

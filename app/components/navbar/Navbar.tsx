@@ -14,9 +14,11 @@ import {
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleNavCart } from "@store/globalSlice";
+import { handleLogin, toggleNavCart } from "@store/globalSlice";
 import { RootState } from "@store";
 import { itemsCount, subtotal } from "@utils/subtotal";
+import { getCookie } from "@utils/cookies";
+import { User } from "@types";
 
 function Navbar() {
   const [accountLinksOpen, setAccountLinksOpen] = useState(false);
@@ -45,6 +47,13 @@ function Navbar() {
       setNavHidden(false);
     }
   }, [pathname]);
+  useEffect(() => {
+    const userInfo = getCookie("UserInfo");
+    console.log(userInfo);
+    if (userInfo) {
+      dispatch(handleLogin(JSON.parse(userInfo)));
+    }
+  }, []);
   return (
     <nav
       className={`relative flex flex-col w-full border-b md:border-none bg-white ${
