@@ -16,6 +16,7 @@ const initialState: InitialState = {
   accessToken: "",
   isLoggedIn: false,
   navCartOpen: false,
+  accountSideBarOpen: true,
 };
 
 const globalSlice = createSlice({
@@ -34,6 +35,9 @@ const globalSlice = createSlice({
       state.accessToken = payload.accessToken;
       state.isLoggedIn = true;
     },
+    handleAccountSideBar: (state, action: PayloadAction<boolean>) => {
+      state.accountSideBarOpen = action.payload;
+    },
   },
 });
 
@@ -42,8 +46,10 @@ interface InitialState {
   accessToken: string;
   isLoggedIn: boolean;
   navCartOpen: boolean;
+  accountSideBarOpen: boolean;
 }
 
-export const { toggleNavCart, handleLogin } = globalSlice.actions;
+export const { toggleNavCart, handleLogin, handleAccountSideBar } =
+  globalSlice.actions;
 
 export default globalSlice.reducer;

@@ -14,11 +14,14 @@ import {
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogin, toggleNavCart } from "@store/globalSlice";
+import {
+  handleAccountSideBar,
+  handleLogin,
+  toggleNavCart,
+} from "@store/globalSlice";
 import { RootState } from "@store";
 import { itemsCount, subtotal } from "@utils/subtotal";
 import { getCookie } from "@utils/cookies";
-import { User } from "@types";
 
 function Navbar() {
   const [accountLinksOpen, setAccountLinksOpen] = useState(false);
@@ -34,6 +37,7 @@ function Navbar() {
 
   useEffect(() => {
     setNavOpen(false);
+    dispatch(handleAccountSideBar(false));
     setAccountLinksOpen(false);
     if (pathname === "/contact" || pathname === "/" || pathname === "/about") {
       setGradientBg(true);

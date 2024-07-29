@@ -1,3 +1,4 @@
 import SideBar from "./SideBar";
+import PageContainer from "./PageContainer";
 
-export { SideBar };
+export { SideBar, PageContainer };
