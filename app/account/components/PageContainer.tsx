@@ -9,7 +9,7 @@ function PageContainer({ children, heading }: PageContainerProps) {
   return (
     <section className="w-full slg:w-3/4 min-h-[35em] bg-white px-0 flex-col rounded-md shadow-md">
       <div className="w-full px-4 py-2 border-b flex gap-2">
-        <button className="w-8 h-8 rounded-full border border-site-blue">
+        <button className="w-8 h-8 rounded-full border border-site-blue slg:hidden">
           <FontAwesomeIcon
             icon={faAngleRight}
             onClick={() => {

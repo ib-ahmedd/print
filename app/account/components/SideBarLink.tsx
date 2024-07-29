@@ -20,8 +20,8 @@ function SideBarLink({ path, title, icon }: SideBarLinkType) {
   return (
     <Link
       href={"/account" + path}
-      className={`w-full flex gap-4 p-2 slg:p-4 text-sm slg:text-base border-b slg:shadow-md bg-white hover:bg-gray-50 rounded-md  ${
-        active && "shadow-none text-site-orange"
+      className={`w-full flex gap-4 p-2 slg:p-4 text-sm slg:text-base border-b slg:border-none  bg-white hover:bg-gray-50 rounded-md  ${
+        active ? "shadow-none text-site-orange" : "slg:shadow-md"
       }`}
     >
       <span className="text-lg slg:text-xl">

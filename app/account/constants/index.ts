@@ -10,6 +10,10 @@ export const sidebarLinksArray: SideBarLinkType[] = [
   { icon: faUser, title: "Account Overview", path: "/overview" },
   { icon: faBox, title: "Orders", path: "/orders" },
   { icon: faEnvelope, title: "Inbox", path: "/inbox" },
-  { icon: faMessage, title: "Pending Reviews", path: "/pending-review" },
-  { icon: faClockRotateLeft, title: "Recently Viewed", path: "/recent-viewed" },
+  { icon: faMessage, title: "Pending Reviews", path: "/pending-reviews" },
+  {
+    icon: faClockRotateLeft,
+    title: "Recently Viewed",
+    path: "/recently-viewed",
+  },
 ];
