@@ -10,7 +10,7 @@ export const metadata = {
 
 const AccountLayout = ({ children }: LayoutProps) => {
   return (
-    <main className="w-full flex gap-2 lg:gap-8 px-4 lg:px-8 xl:px-40 bg-gray-100 py-8">
+    <main className="w-full flex gap-2 lg:gap-8 px-4 lg:px-8 xl:px-40 bg-gray-100 py-4 md:py-8">
       <SideBar />
       <ScreenCover />
       {children}

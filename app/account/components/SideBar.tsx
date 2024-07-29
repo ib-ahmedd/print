@@ -25,7 +25,7 @@ function SideBar() {
           onClick={() => {
             dispatch(handleAccountSideBar(false));
           }}
-          className="text-xl"
+          className="text-xl slg:hidden mr-2"
         >
           <FontAwesomeIcon icon={faClose} />
         </button>

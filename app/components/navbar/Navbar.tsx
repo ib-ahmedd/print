@@ -80,7 +80,7 @@ function Navbar() {
         </Link>
       </div>
       <div
-        className={`flex justify-between py-6 w-full bg-white md:bg-transparent z-30 ${
+        className={`flex justify-between py-3 md:py-6 w-full bg-white md:bg-transparent z-30 ${
           navHidden && "hidden"
         }`}
       >
@@ -102,7 +102,7 @@ function Navbar() {
             <div className="relative">
               <div
                 className={`z-20 text-site-blue flex items-center gap-2 cursor-pointer ${
-                  pathname === "/account" ||
+                  pathname.includes("/account") ||
                   pathname === "/cart" ||
                   pathname === "/login"
                     ? "text-site-orange"
@@ -133,9 +133,9 @@ function Navbar() {
                   }`}
                 >
                   <Link
-                    href={isLoggedIn ? "/account" : "/login"}
+                    href={isLoggedIn ? "/account/overview" : "/login"}
                     className={`p-4 ${
-                      pathname === "/account"
+                      pathname.includes("/account")
                         ? "text-site-orange"
                         : "text-site-blue hover:text-navlink-hover"
                     }`}
@@ -160,7 +160,7 @@ function Navbar() {
             onClick={() => {
               dispatch(toggleNavCart());
             }}
-            className="text-lg text-site-orange-hover flex gap-3 font-medium"
+            className="text-base md:text-lg text-site-orange-hover flex gap-3 font-medium"
           >
             ${subtotal(cartItems).toFixed(2)}
             <span className="relative">
@@ -174,7 +174,7 @@ function Navbar() {
             onClick={() => {
               setNavOpen((prev) => !prev);
             }}
-            className="md:hidden bg-site-orange text-white w-8 h-8 text-lg rounded-sm"
+            className="md:hidden bg-site-orange text-white w-6 h-6 text-sm md:text-lg rounded-sm"
           >
             <FontAwesomeIcon icon={navOpen ? faClose : faBars} />
           </button>
@@ -185,7 +185,7 @@ function Navbar() {
       /* ---------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */}
       <div
-        className={`md:hidden absolute top-20 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 ${
+        className={`md:hidden absolute top-14 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 ${
           navOpen ? "translate-y-0 shadow-md" : "-translate-y-full"
         }`}
       >
@@ -194,7 +194,7 @@ function Navbar() {
             {navLinksArray.map((item) => (
               <NavLink key={item.title} {...item} />
             ))}
-            <NavLink title="MY ACCOUNT" path="/account" />
+            <NavLink title="MY ACCOUNT" path="/account/overview" />
             <NavLink title="CART" path="/cart" />
           </span>
         </div>
