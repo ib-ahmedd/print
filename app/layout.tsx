@@ -6,6 +6,7 @@ import ReduxProvider from "@store/ReduxProvider";
 import NavCart from "./nav-cart/NavCart";
 import ScreenCover from "@components/ScreenCover";
 import { LayoutProps } from "@types";
+import "dotenv/config";
 
 export const metadata = {
   title: "Home - Custom Printing",

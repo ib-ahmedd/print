@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@types";
-import { setCookie } from "@utils/cookies";
 
 const initialState: InitialState = {
+  appLoaded: false,
   user: {
     _id: "",
     user_name: "",
@@ -38,10 +38,14 @@ const globalSlice = createSlice({
     handleAccountSideBar: (state, action: PayloadAction<boolean>) => {
       state.accountSideBarOpen = action.payload;
     },
+    handleAppLoaded: (state) => {
+      state.appLoaded = true;
+    },
   },
 });
 
 interface InitialState {
+  appLoaded: boolean;
   user: User;
   accessToken: string;
   isLoggedIn: boolean;
@@ -49,7 +53,11 @@ interface InitialState {
   accountSideBarOpen: boolean;
 }
 
-export const { toggleNavCart, handleLogin, handleAccountSideBar } =
-  globalSlice.actions;
+export const {
+  toggleNavCart,
+  handleLogin,
+  handleAccountSideBar,
+  handleAppLoaded,
+} = globalSlice.actions;
 
 export default globalSlice.reducer;

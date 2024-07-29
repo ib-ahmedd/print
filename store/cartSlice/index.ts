@@ -116,6 +116,10 @@ const cartSlice = createSlice({
       state.cartAltered = false;
       state.cartUpdated = true;
     },
+    emptyCart: (state) => {
+      console.log("dispatched");
+      state.items = state.items.filter(() => {});
+    },
     cartLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -203,6 +207,7 @@ export const {
   clearNoLog,
   clearItemAdded,
   mergeCartItems,
+  emptyCart,
   cartAltered,
   cartUpdated,
   cartLoading,

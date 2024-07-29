@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import {
   handleAccountSideBar,
+  handleAppLoaded,
   handleLogin,
   toggleNavCart,
 } from "@store/globalSlice";
@@ -53,10 +54,12 @@ function Navbar() {
   }, [pathname]);
   useEffect(() => {
     const userInfo = getCookie("UserInfo");
-    console.log(userInfo);
     if (userInfo) {
       dispatch(handleLogin(JSON.parse(userInfo)));
     }
+  }, []);
+  useEffect(() => {
+    dispatch(handleAppLoaded());
   }, []);
   return (
     <nav

@@ -46,3 +46,15 @@ export interface AlteredItems {
   _id: string;
   quantity: number;
 }
+
+export interface orders {
+  _id?: string;
+  user_id: string;
+  product_id: string;
+  product_name: string;
+  product_image: string;
+  price: number;
+  quantity: number;
+  delivered: boolean;
+  reviewed: boolean;
+}

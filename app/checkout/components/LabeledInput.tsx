@@ -3,7 +3,6 @@ function LabeledInput({
   title,
   htmlName,
   value,
-  handleChange,
 }: LabeledInputProps) {
   return (
     <div className="flex-1 flex flex-col">
@@ -17,7 +16,6 @@ function LabeledInput({
         name={htmlName}
         value={value}
         disabled
-        onChange={handleChange}
       />
     </div>
   );
@@ -28,7 +26,6 @@ interface LabeledInputProps {
   title: string;
   htmlName: string;
   value: string;
-  handleChange(e: any): void;
 }
 
 export default LabeledInput;
