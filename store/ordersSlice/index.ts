@@ -43,6 +43,9 @@ const ordersSlice = createSlice({
       const { payload } = action;
       payload.forEach((item) => state.orderedItems.unshift(item));
     },
+    resetItemsOrdered: (state) => {
+      state.orderComplete = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,6 +54,7 @@ const ordersSlice = createSlice({
       })
       .addCase(addOrders.fulfilled, (state) => {
         state.orderComplete = true;
+        state.ordersLoading = false;
       })
       .addCase(addOrders.rejected, (state, action) => {
         state.orderError = true;
@@ -68,5 +72,5 @@ interface OrderState {
   errorMessage: string | undefined;
 }
 
-export const { setOrderedItems } = ordersSlice.actions;
+export const { setOrderedItems, resetItemsOrdered } = ordersSlice.actions;
 export default ordersSlice.reducer;

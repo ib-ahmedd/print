@@ -24,7 +24,7 @@ function PaystackBtn() {
   const config = {
     reference: new Date().getTime().toString(),
     email: user.email,
-    amount: subtotal(cartItems) * 1500 * 100,
+    amount: parseInt((subtotal(cartItems) * 1500 * 100).toString()),
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_KEY
       ? process.env.NEXT_PUBLIC_PAYSTACK_KEY
       : "",
@@ -43,12 +43,6 @@ function PaystackBtn() {
   };
   const initializePayment = usePaystackPayment(config);
 
-  useEffect(() => {
-    if (itemsOrdered) {
-      dispatch(setOrderedItems(cartItems));
-      dispatch(emptyCart());
-    }
-  }, [itemsOrdered, cartItems]);
   return (
     <button
       className={`w-full rounded-md py-3 bg-site-orange text-white mt-4 ${
@@ -56,10 +50,11 @@ function PaystackBtn() {
       }`}
       disabled={orderLoading}
       onClick={() => {
+        console.log(config.amount);
         initializePayment(paymentInfo);
       }}
     >
-      {orderLoading ? "PROCESSING" : "PLACE YOUR ORDER"}
+      {orderLoading ? "PROCESSING..." : "PLACE YOUR ORDER"}
     </button>
   );
 }

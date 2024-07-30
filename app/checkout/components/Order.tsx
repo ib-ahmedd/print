@@ -1,9 +1,12 @@
 "use client";
 import { RootState } from "@store";
 import { subtotal } from "@utils/subtotal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PaystackBtn from "./PaystactBtn";
 import Link from "next/link";
+import { useEffect } from "react";
+import { resetItemsOrdered, setOrderedItems } from "@store/ordersSlice";
+import { emptyCart } from "@store/cartSlice";
 
 function Order() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -13,6 +16,20 @@ function Order() {
   const orderedItems = useSelector(
     (state: RootState) => state.orders.orderedItems
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (itemsOrdered) {
+      dispatch(setOrderedItems(cartItems));
+      dispatch(emptyCart());
+    }
+    return () => {
+      if (itemsOrdered) {
+        dispatch(resetItemsOrdered());
+      }
+    };
+  }, [itemsOrdered]);
   return (
     <article className="your_order w-full mt-8 md:mt-0 md:w-[46%] lg:w-[30em] border-2 border-gray-300 p-8 h-fit">
       <h2 className="text-xl mb-4">Your order</h2>
