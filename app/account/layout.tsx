@@ -2,6 +2,7 @@ import { LayoutProps } from "@types";
 import React from "react";
 import { SideBar } from "./components";
 import ScreenCover from "./components/ScreenCover";
+import dateFormat from "@utils/dateFormat";
 
 export const metadata = {
   title: "Account - Custom Printing",

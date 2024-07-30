@@ -47,7 +47,7 @@ export interface AlteredItems {
   quantity: number;
 }
 
-export interface orders {
+export interface Order {
   _id?: string;
   user_id: string;
   product_id: string;
@@ -57,4 +57,5 @@ export interface orders {
   quantity: number;
   delivered: boolean;
   reviewed: boolean;
+  date_ordered: string;
 }

@@ -117,7 +117,6 @@ const cartSlice = createSlice({
       state.cartUpdated = true;
     },
     emptyCart: (state) => {
-      console.log("dispatched");
       state.items = state.items.filter(() => {});
     },
     cartLoading: (state, action: PayloadAction<boolean>) => {

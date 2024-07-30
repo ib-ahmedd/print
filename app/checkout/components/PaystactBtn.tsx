@@ -4,19 +4,14 @@ import { usePaystackPayment } from "react-paystack";
 import { useDispatch, useSelector } from "react-redux";
 import "dotenv/config";
 import { addOrders, setOrderedItems } from "@store/ordersSlice";
-import { useEffect } from "react";
-import { emptyCart } from "@store/cartSlice";
 function PaystackBtn() {
   const user = useSelector((state: RootState) => state.global.user);
   const accessToken = useSelector(
     (state: RootState) => state.global.accessToken
   );
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const itemsOrdered = useSelector(
-    (state: RootState) => state.orders.orderComplete
-  );
   const orderLoading = useSelector(
-    (state: RootState) => state.orders.ordersLoading
+    (state: RootState) => state.orders.processingOrder
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -50,7 +45,6 @@ function PaystackBtn() {
       }`}
       disabled={orderLoading}
       onClick={() => {
-        console.log(config.amount);
         initializePayment(paymentInfo);
       }}
     >
