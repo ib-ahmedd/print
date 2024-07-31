@@ -22,7 +22,6 @@ import {
 } from "@store/globalSlice";
 import { RootState } from "@store";
 import { itemsCount, subtotal } from "@utils/subtotal";
-import { getCookie } from "@utils/cookies";
 
 function Navbar() {
   const [accountLinksOpen, setAccountLinksOpen] = useState(false);
@@ -53,7 +52,7 @@ function Navbar() {
     }
   }, [pathname]);
   useEffect(() => {
-    const userInfo = getCookie("UserInfo");
+    const userInfo = localStorage.getItem("UserInfo");
     if (userInfo) {
       dispatch(handleLogin(JSON.parse(userInfo)));
     }

@@ -10,7 +10,6 @@ import SubmitBtn from "./SubmitBtn";
 import ErrorDisplay from "./ErrorDisplay";
 import { RootState } from "@store";
 import { clearNoLog } from "@store/cartSlice";
-import { setCookie } from "@utils/cookies";
 
 function LoginForm({ inView, setInView }: LoginFormProps) {
   const [inputs, setInputs] = useState({
@@ -62,14 +61,14 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
             if (postedItems === cartItems.length) {
               dispatch(clearNoLog());
               dispatch(handleLogin(response.data));
-              setCookie("UserInfo", JSON.stringify(response.data), 7);
+              localStorage.setItem("UserInfo", JSON.stringify(response.data));
               router.push("/account");
             }
           });
         } else {
           dispatch(clearNoLog());
           dispatch(handleLogin(response.data));
-          setCookie("UserInfo", JSON.stringify(response.data), 7);
+          localStorage.setItem("UserInfo", JSON.stringify(response.data));
           router.push("/account");
         }
       }
