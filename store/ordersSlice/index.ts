@@ -1,3 +1,4 @@
+import PendingReviews from "@app/account/pending-reviews/page";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartItem, Order } from "@types";
 import axios from "axios";
@@ -5,10 +6,13 @@ import axios from "axios";
 const initialState: OrderState = {
   orders: [],
   orderedItems: [],
+  pendingReviews: [],
   orderComplete: false,
   ordersLoading: true,
+  pendingReviewsLoading: true,
   processingOrder: false,
   orderError: false,
+  pendingReviewsError: false,
   errorMessage: "",
 };
 
@@ -47,6 +51,27 @@ export const addOrders = createAsyncThunk(
     const response = await axios.post(
       "http://localhost:4000/api/add-orders",
       { orders: items, user_id },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+export const getPendingReviews = createAsyncThunk(
+  "orders/getPendingReviews",
+  async ({
+    user_id,
+    accessToken,
+  }: {
+    user_id: string;
+    accessToken: string;
+  }) => {
+    const response = await axios.get(
+      `http://localhost:4000/api/pending-reviews/${user_id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -97,15 +122,35 @@ const ordersSlice = createSlice({
         state.errorMessage = action.error.message;
         state.processingOrder;
       });
+
+    // -------------pending reviews--------------------
+    builder
+      .addCase(getPendingReviews.pending, (state) => {
+        state.pendingReviewsLoading = true;
+      })
+      .addCase(
+        getPendingReviews.fulfilled,
+        (state, action: PayloadAction<Order[]>) => {
+          state.pendingReviews = action.payload;
+          state.pendingReviewsLoading = false;
+        }
+      )
+      .addCase(getPendingReviews.rejected, (state, action) => {
+        state.pendingReviewsError = true;
+        state.errorMessage = action.error.message;
+      });
   },
 });
 
 interface OrderState {
   orders: Order[];
   orderedItems: CartItem[];
+  pendingReviews: Order[];
   orderComplete: boolean;
   ordersLoading: boolean;
+  pendingReviewsLoading: boolean;
   orderError: boolean;
+  pendingReviewsError: boolean;
   errorMessage: string | undefined;
   processingOrder: boolean;
 }

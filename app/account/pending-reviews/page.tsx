@@ -1,19 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { PageContainer } from "../components";
+import { EmptyPage, PageContainer } from "../components";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPendingReviews } from "@store/ordersSlice";
+import { AppDispatch, RootState } from "@store";
+import { ReviewItem, ReviewItemSkeleton } from "./components";
 
 function PendingReviews() {
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.global.user);
+  const accessToken = useSelector(
+    (state: RootState) => state.global.accessToken
+  );
+  const pendingReviews = useSelector(
+    (state: RootState) => state.orders.pendingReviews
+  );
+  const loading = useSelector(
+    (state: RootState) => state.orders.pendingReviewsLoading
+  );
+
+  useEffect(() => {
+    dispatch(
+      getPendingReviews({ user_id: user._id, accessToken: accessToken })
+    );
+  }, [user, accessToken]);
   return (
     <PageContainer heading="Pending reviews">
-      <div className="w-full h-full flex flex-col gap-4 justify-center items-center text-base md:text-lg">
-        <p>You don't have any pending reviews.</p>
-        <Link
-          href="/shop"
-          className="py-3 md:py-2 px-6 bg-site-orange text-white rounded-md"
-        >
-          RETURN TO SHOP
-        </Link>
+      {!loading && pendingReviews.length === 0 && (
+        <EmptyPage text="You don't have any pending reviews." />
+      )}
+      <div className="p-2">
+        {!loading &&
+          pendingReviews.map((item) => <ReviewItem key={item._id} {...item} />)}
+        {loading && <ReviewItemSkeleton />}
       </div>
     </PageContainer>
   );
