@@ -17,6 +17,9 @@ function Orders() {
   );
   const orders = useSelector((state: RootState) => state.orders.orders);
   const loading = useSelector((state: RootState) => state.orders.ordersLoading);
+  const recentlyViewed = useSelector(
+    (state: RootState) => state.global.recentlyViewed
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   const openOrders = orders.filter((item) => !item.delivered);

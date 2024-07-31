@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "@types";
+import { ProductsType, User } from "@types";
 
 const initialState: InitialState = {
   appLoaded: false,
@@ -17,6 +17,7 @@ const initialState: InitialState = {
   isLoggedIn: false,
   navCartOpen: false,
   accountSideBarOpen: true,
+  recentlyViewed: [],
 };
 
 const globalSlice = createSlice({
@@ -41,6 +42,32 @@ const globalSlice = createSlice({
     handleAppLoaded: (state) => {
       state.appLoaded = true;
     },
+    getRecent: (state) => {
+      const recentlyViewed: ProductsType[] = JSON.parse(
+        localStorage.getItem("recently-viewed") || "[]"
+      );
+      state.recentlyViewed = recentlyViewed;
+    },
+    addToRecent: (state, action: PayloadAction<ProductsType>) => {
+      const { payload } = action;
+      const itemExists = state.recentlyViewed.find(
+        (item) => item._id === payload._id
+      );
+      if (itemExists) {
+        const updatedState = state.recentlyViewed.filter(
+          (item) => item._id !== payload._id
+        );
+        state.recentlyViewed = updatedState;
+      }
+      state.recentlyViewed.unshift(payload);
+      if (state.recentlyViewed.length > 10) {
+        state.recentlyViewed.pop();
+      }
+      localStorage.setItem(
+        "recently-viewed",
+        JSON.stringify(state.recentlyViewed)
+      );
+    },
   },
 });
 
@@ -51,6 +78,7 @@ interface InitialState {
   isLoggedIn: boolean;
   navCartOpen: boolean;
   accountSideBarOpen: boolean;
+  recentlyViewed: ProductsType[];
 }
 
 export const {
@@ -58,6 +86,8 @@ export const {
   handleLogin,
   handleAccountSideBar,
   handleAppLoaded,
+  addToRecent,
+  getRecent,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

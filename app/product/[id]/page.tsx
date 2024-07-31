@@ -15,6 +15,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import SetQuantity from "@components/SetQuantity";
 import { AppDispatch, RootState } from "@store";
+import { addToRecent } from "@store/globalSlice";
 
 function ProductPage() {
   const { id } = useParams();
@@ -36,6 +37,9 @@ function ProductPage() {
   // --------------cart state---------------
   const added = useSelector((state: RootState) => state.cart.added);
   const loading = useSelector((state: RootState) => state.cart.adding);
+  const recentlyViewed = useSelector(
+    (state: RootState) => state.global.recentlyViewed
+  );
 
   const {
     product,
@@ -81,6 +85,12 @@ function ProductPage() {
       dispatch(clearItemAdded());
     };
   }, []);
+
+  useEffect(() => {
+    if (product) {
+      dispatch(addToRecent(product));
+    }
+  }, [product]);
 
   return (
     <main className="py-0 sm:py-8 xl:py-16 bg-gray-100 px-0 sm:px-4 md:px-8 xl:px-32">

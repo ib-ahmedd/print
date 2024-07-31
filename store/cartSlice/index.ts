@@ -60,7 +60,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     getNoLog: (state) => {
-      const rawCookie = getCookie("CartItems");
+      const rawCookie = localStorage.getItem("CartItems");
       const cartItems: CartItem[] = rawCookie ? JSON.parse(rawCookie) : [];
       cartItems.forEach((item) => state.items.push(item));
       state.loading = false;
@@ -78,7 +78,7 @@ const cartSlice = createSlice({
       if (!exists) {
         state.items.unshift(payload);
       }
-      setCookie("CartItems", JSON.stringify(state.items), 1);
+      localStorage.setItem("CartItems", JSON.stringify(state.items));
       state.adding = false;
       state.added = true;
     },
@@ -86,13 +86,13 @@ const cartSlice = createSlice({
     removeNoLog: (state, action: PayloadAction<string>) => {
       const { payload } = action;
       state.items = state.items.filter((item) => item.product_id !== payload);
-      setCookie("CartItems", JSON.stringify(state.items), 1);
+      localStorage.setItem("CartItems", JSON.stringify(state.items));
     },
     updateNoLog: (state, action: PayloadAction<CartItem[]>) => {
       const { payload } = action;
       state.items = state.items.filter(() => {});
       payload.forEach((item) => state.items.push(item));
-      setCookie("CartItems", JSON.stringify(state.items), 1);
+      localStorage.setItem("CartItems", JSON.stringify(state.items));
       state.cartAltered = false;
       state.cartUpdated = true;
     },
@@ -101,7 +101,7 @@ const cartSlice = createSlice({
     },
     clearNoLog: (state) => {
       state.items = state.items.filter(() => {});
-      deleteCookie("CartItems");
+      localStorage.removeItem("CartItems");
     },
     mergeCartItems: (state, action: PayloadAction<AlteredItems[]>) => {
       const { payload } = action;

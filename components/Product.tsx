@@ -11,12 +11,15 @@ function Product({
   rating,
   price,
   sale,
+  border,
 }: ProductProps) {
   return (
     <article
-      className={`w-[48%] sm:w-[32%] ${
-        notShop && "md:w-[23.5%]"
-      } flex flex-col items-center gap-2 mb-8`}
+      className={`w-[49%] sm:w-[32%] ${
+        notShop && "md:w-[24%]"
+      } flex flex-col items-center gap-2 mb-2 ${
+        border && "border rounded-md p-2"
+      }`}
     >
       <Link className="relative" href={`/product/${_id}`}>
         <img
@@ -28,19 +31,22 @@ function Product({
         {sale && <Sale style={2} />}
       </Link>
       <p className="text-sm text-gray-400">{category}</p>
-      <Link href={`/product/${_id}`} className="font-bold text-center h-10">
+      <Link
+        href={`/product/${_id}`}
+        className="font-bold text-center text-sm md:text-base"
+      >
         {product_name}
       </Link>
       <RatingStars stars={rating} />
       {sale ? (
-        <p className="font-bold">
+        <p className="font-bold text-sm md:text-base">
           <span className="text-gray-300 line-through">
             ${price.toFixed(2)}
           </span>{" "}
           ${percentage(price, 15).toFixed(2)}
         </p>
       ) : (
-        <p className="font-bold">${price.toFixed(2)}</p>
+        <p className="font-bold text-sm md:text-base">${price.toFixed(2)}</p>
       )}
     </article>
   );
@@ -55,6 +61,7 @@ interface ProductProps {
   price: number;
   rating: number;
   sale: boolean;
+  border?: boolean;
 }
 
 export default Product;

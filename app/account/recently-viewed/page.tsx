@@ -1,19 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { PageContainer } from "../components";
+import { EmptyPage, PageContainer } from "../components";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@store";
+import Product from "@components/Product";
+import { useEffect } from "react";
+import { getRecent } from "@store/globalSlice";
 
 function page() {
+  const recentlyViewed = useSelector(
+    (state: RootState) => state.global.recentlyViewed
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRecent());
+  }, []);
   return (
     <PageContainer heading="Recently viewed">
-      <div className="w-full h-full flex flex-col gap-4 justify-center items-center text-base md:text-lg">
-        <p>You don't haven't viewed any products recently.</p>
-        <Link
-          href="/shop"
-          className="py-3 md:py-2 px-6 bg-site-orange text-white rounded-md"
-        >
-          RETURN TO SHOP
-        </Link>
+      {recentlyViewed.length === 0 && (
+        <EmptyPage text="You haven't viewed any products recently." />
+      )}
+      <div className="flex p-2 gap-[1%] flex-wrap">
+        {recentlyViewed.length > 0 &&
+          recentlyViewed.map((item) => (
+            <Product key={item._id} {...item} notShop border />
+          ))}
       </div>
     </PageContainer>
   );
