@@ -1,4 +1,4 @@
-import { ProductsType } from "@types";
+import { ProductsType, User } from "@types";
 
 export const demoProductObject: ProductsType = {
   _id: "66959f416fe77293dd2a502f",
@@ -24,4 +24,15 @@ export const fallBackProduct: ProductsType = {
   rating: 0,
   sale: false,
   sold: 0,
+};
+
+export const fallBackUser: User = {
+  _id: "",
+  user_name: "",
+  email: "",
+  mobile_no: "",
+  country: "",
+  state: "",
+  city: "",
+  address: "",
 };

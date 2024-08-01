@@ -62,14 +62,14 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
               dispatch(clearNoLog());
               dispatch(handleLogin(response.data));
               localStorage.setItem("UserInfo", JSON.stringify(response.data));
-              router.push("/account");
+              router.push("/account/overview");
             }
           });
         } else {
           dispatch(clearNoLog());
           dispatch(handleLogin(response.data));
           localStorage.setItem("UserInfo", JSON.stringify(response.data));
-          router.push("/account");
+          router.push("/account/overview");
         }
       }
     } catch (err: any) {

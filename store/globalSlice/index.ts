@@ -1,18 +1,10 @@
+import { fallBackUser } from "@constants";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductsType, User } from "@types";
 
 const initialState: InitialState = {
   appLoaded: false,
-  user: {
-    _id: "",
-    user_name: "",
-    email: "",
-    mobile_no: "",
-    country: "",
-    state: "",
-    city: "",
-    address: "",
-  },
+  user: fallBackUser,
   accessToken: "",
   isLoggedIn: false,
   navCartOpen: false,
@@ -35,6 +27,11 @@ const globalSlice = createSlice({
       state.user = { ...state.user, ...payload.user };
       state.accessToken = payload.accessToken;
       state.isLoggedIn = true;
+    },
+    handleLogOut: (state) => {
+      (state.isLoggedIn = false), (state.user = fallBackUser);
+      state.accessToken = "";
+      localStorage.removeItem("UserInfo");
     },
     handleAccountSideBar: (state, action: PayloadAction<boolean>) => {
       state.accountSideBarOpen = action.payload;
@@ -88,6 +85,7 @@ export const {
   handleAppLoaded,
   addToRecent,
   getRecent,
+  handleLogOut,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

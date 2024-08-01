@@ -85,7 +85,7 @@ function CompleteRegister({
             dispatch(clearNoLog());
             dispatch(handleLogin(response.data));
             localStorage.setItem("UserInfo", JSON.stringify(response.data));
-            router.push("/account");
+            router.push("/account/overview");
           }
         });
       } else {
