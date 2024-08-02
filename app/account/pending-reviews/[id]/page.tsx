@@ -100,7 +100,11 @@ function Review() {
     }
   }, [loading]);
   return (
-    <PageContainer heading="Review Product" backBtn>
+    <PageContainer
+      heading="Review Product"
+      backBtn
+      backPath="/account/pending-reviews"
+    >
       {loading && <ReviewSkeleton />}
       {!loading && !submitted && (
         <div className="p-2">

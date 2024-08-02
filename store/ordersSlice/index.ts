@@ -6,6 +6,18 @@ import axios from "axios";
 const initialState: OrderState = {
   orders: [],
   orderedItems: [],
+  orderDetails: {
+    _id: "",
+    user_id: "",
+    reviewed: false,
+    quantity: 0,
+    product_name: "",
+    product_image: "",
+    product_id: "",
+    price: 0,
+    delivered: false,
+    date_ordered: "",
+  },
   pendingReviews: [],
   reviewItem: {
     _id: "",
@@ -16,10 +28,12 @@ const initialState: OrderState = {
   reviewItemError: false,
   orderComplete: false,
   ordersLoading: true,
+  orderDetailsLoading: true,
   reviewItemLoading: true,
   pendingReviewsLoading: true,
   processingOrder: false,
   orderError: false,
+  orderDetailsError: false,
   pendingReviewsError: false,
   errorMessage: "",
 };
@@ -112,6 +126,26 @@ export const getReviewItem = createAsyncThunk(
   }
 );
 
+export const getOrder = createAsyncThunk(
+  "orders/getOrder",
+  async ({
+    order_id,
+    accessToken,
+  }: {
+    order_id: string | string[];
+    accessToken: string;
+  }) => {
+    const response = await axios.get(
+      `http://localhost:4000/api/order/${order_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
@@ -170,6 +204,21 @@ const ordersSlice = createSlice({
         state.errorMessage = action.error.message;
       });
 
+    // -------------get order details--------------
+    builder
+      .addCase(getOrder.pending, (state) => {
+        state.orderDetailsLoading = true;
+      })
+      .addCase(getOrder.fulfilled, (state, action: PayloadAction<Order>) => {
+        const { payload } = action;
+        state.orderDetails = payload;
+        state.orderDetailsLoading = false;
+      })
+      .addCase(getOrder.rejected, (state, action) => {
+        state.orderDetailsError = true;
+        state.errorMessage = action.error.message;
+      });
+
     // ------------get review item------------------
     builder
       .addCase(getReviewItem.pending, (state) => {
@@ -194,12 +243,15 @@ interface OrderState {
   orders: Order[];
   orderedItems: CartItem[];
   pendingReviews: Order[];
+  orderDetails: Order;
   reviewItem: ReviewItem;
   orderComplete: boolean;
   ordersLoading: boolean;
+  orderDetailsLoading: boolean;
   pendingReviewsLoading: boolean;
   reviewItemLoading: boolean;
   orderError: boolean;
+  orderDetailsError: boolean;
   pendingReviewsError: boolean;
   reviewItemError: boolean;
   errorMessage: string | undefined;

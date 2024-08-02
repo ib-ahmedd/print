@@ -10,7 +10,7 @@ function SideBarLink({ path, title, icon }: SideBarLinkType) {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (pathname === "/account" + path) {
+    if (pathname.includes("/account" + path)) {
       setActive(true);
     } else {
       setActive(false);

@@ -7,7 +7,12 @@ import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function PageContainer({ children, heading, backBtn }: PageContainerProps) {
+function PageContainer({
+  children,
+  heading,
+  backBtn,
+  backPath,
+}: PageContainerProps) {
   const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
   const appLoaded = useSelector((state: RootState) => state.global.appLoaded);
   const dispatch = useDispatch();
@@ -31,7 +36,12 @@ function PageContainer({ children, heading, backBtn }: PageContainerProps) {
           </button>
         )}
         {backBtn && (
-          <button className="w-8 h-8 rounded-full border border-site-blue">
+          <button
+            onClick={() => {
+              router.push(backPath || "/");
+            }}
+            className="w-8 h-8 rounded-full border border-site-blue"
+          >
             <FontAwesomeIcon icon={faAngleLeft} />
           </button>
         )}
@@ -48,6 +58,7 @@ interface PageContainerProps {
   children: ReactNode;
   heading: string;
   backBtn?: boolean;
+  backPath?: string;
 }
 
 export default PageContainer;

@@ -5,7 +5,6 @@ function OrderedItem({
   product_name,
   product_image,
   product_id,
-  price,
   date_ordered,
   quantity,
 }: Order) {
