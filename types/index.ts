@@ -59,3 +59,21 @@ export interface Order {
   reviewed: boolean;
   date_ordered: string;
 }
+
+export interface ReviewItem {
+  _id: string;
+  product_id: string;
+  product_name: string;
+  product_image: string;
+  reviewed?: boolean;
+}
+
+export interface ReviewType {
+  _id?: string;
+  order_id: string;
+  product_id: string;
+  user_id: string;
+  rating: number;
+  review_title: string;
+  review: string;
+}

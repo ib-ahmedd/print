@@ -1,14 +1,22 @@
 import PendingReviews from "@app/account/pending-reviews/page";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, Order } from "@types";
+import { CartItem, Order, ReviewItem } from "@types";
 import axios from "axios";
 
 const initialState: OrderState = {
   orders: [],
   orderedItems: [],
   pendingReviews: [],
+  reviewItem: {
+    _id: "",
+    product_id: "",
+    product_name: "",
+    product_image: "",
+  },
+  reviewItemError: false,
   orderComplete: false,
   ordersLoading: true,
+  reviewItemLoading: true,
   pendingReviewsLoading: true,
   processingOrder: false,
   orderError: false,
@@ -82,6 +90,28 @@ export const getPendingReviews = createAsyncThunk(
   }
 );
 
+export const getReviewItem = createAsyncThunk(
+  "order/getReviewItem",
+  async ({
+    orderId,
+    accessToken,
+  }: {
+    orderId: string | string[];
+    accessToken: string;
+  }) => {
+    const response = await axios.get(
+      `http://localhost:4000/api/review-item/${orderId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    return response.data;
+  }
+);
+
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
@@ -139,6 +169,24 @@ const ordersSlice = createSlice({
         state.pendingReviewsError = true;
         state.errorMessage = action.error.message;
       });
+
+    // ------------get review item------------------
+    builder
+      .addCase(getReviewItem.pending, (state) => {
+        state.reviewItemLoading = true;
+      })
+      .addCase(
+        getReviewItem.fulfilled,
+        (state, action: PayloadAction<ReviewItem>) => {
+          state.reviewItem = action.payload;
+          state.reviewItemLoading = false;
+          state.reviewItemError = false;
+        }
+      )
+      .addCase(getReviewItem.rejected, (state, action) => {
+        (state.reviewItemError = true),
+          (state.errorMessage = action.error.message);
+      });
   },
 });
 
@@ -146,11 +194,14 @@ interface OrderState {
   orders: Order[];
   orderedItems: CartItem[];
   pendingReviews: Order[];
+  reviewItem: ReviewItem;
   orderComplete: boolean;
   ordersLoading: boolean;
   pendingReviewsLoading: boolean;
+  reviewItemLoading: boolean;
   orderError: boolean;
   pendingReviewsError: boolean;
+  reviewItemError: boolean;
   errorMessage: string | undefined;
   processingOrder: boolean;
 }

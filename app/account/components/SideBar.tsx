@@ -36,7 +36,7 @@ function SideBar() {
       </div>
       <button
         onClick={() => {
-          router.push("/");
+          router.replace("/");
           dispatch(handleLogOut());
         }}
         className="w-full px-8 py-2 md:py-4 text-sm slg:text-base text-white rounded-md bg-site-orange shadow-md"

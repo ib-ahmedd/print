@@ -27,7 +27,7 @@ function ReviewItem({
         <p>Ordered on: {date_ordered}</p>
       </div>
       <Link
-        href={`/pending-review/${_id}`}
+        href={`/account/pending-reviews/${_id}`}
         className="text-site-orange underline font-semibold text-sm md:text-base"
       >
         RATE THIS PRODUCT
