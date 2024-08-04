@@ -10,6 +10,7 @@ const initialState: InitialState = {
   navCartOpen: false,
   accountSideBarOpen: true,
   recentlyViewed: [],
+  routerState: "",
 };
 
 const globalSlice = createSlice({
@@ -45,6 +46,13 @@ const globalSlice = createSlice({
       );
       state.recentlyViewed = recentlyViewed;
     },
+    setRouterState: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      state.routerState = payload;
+    },
+    resetRouterState: (state) => {
+      state.routerState = "";
+    },
     addToRecent: (state, action: PayloadAction<ProductsType>) => {
       const { payload } = action;
       const itemExists = state.recentlyViewed.find(
@@ -76,6 +84,7 @@ interface InitialState {
   navCartOpen: boolean;
   accountSideBarOpen: boolean;
   recentlyViewed: ProductsType[];
+  routerState: string;
 }
 
 export const {
@@ -86,6 +95,8 @@ export const {
   addToRecent,
   getRecent,
   handleLogOut,
+  setRouterState,
+  resetRouterState,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

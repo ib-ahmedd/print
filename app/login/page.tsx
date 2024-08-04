@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CompleteRegister,
   LoginForm,
@@ -10,6 +10,8 @@ import {
 import OTP from "./components/OTP";
 import { Inview } from "./types";
 import ForgotEmailForm from "./components/ForgotEmailForm";
+import { useDispatch } from "react-redux";
+import { resetRouterState } from "@store/globalSlice";
 
 function Login() {
   const [inView, setInView] = useState<Inview>("login");
@@ -21,6 +23,13 @@ function Login() {
   });
   const [passwordResetEmail, setPasswordResetEmail] = useState("");
   const [authToken, setAuthToken] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetRouterState());
+    };
+  }, []);
   return (
     <main className="w-full flex">
       <section className="h-[40em] flex-col items-center pt-8">

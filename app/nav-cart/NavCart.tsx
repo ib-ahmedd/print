@@ -2,7 +2,7 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppDispatch, RootState } from "@store";
-import { toggleNavCart } from "@store/globalSlice";
+import { setRouterState, toggleNavCart } from "@store/globalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { subtotal } from "@utils/subtotal";
 import Link from "next/link";
@@ -92,6 +92,9 @@ function NavCart() {
               VIEW CART
             </Link>
             <Link
+              onClick={() => {
+                dispatch(setRouterState("/checkout"));
+              }}
               href={isLoggedIn ? "/checkout" : "/login"}
               className="bg-site-orange text-white w-full py-2 rounded-md"
             >

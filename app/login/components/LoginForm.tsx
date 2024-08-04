@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import checkFormComplete from "@utils/checkFormComplete";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogin } from "@store/globalSlice";
+import { handleLogin, resetRouterState } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
@@ -23,6 +23,9 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const routerState = useSelector(
+    (state: RootState) => state.global.routerState
+  );
   const router = useRouter();
 
   function handleInputs(e: any) {
@@ -62,14 +65,18 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
               dispatch(clearNoLog());
               dispatch(handleLogin(response.data));
               localStorage.setItem("UserInfo", JSON.stringify(response.data));
-              router.push("/account/overview");
+              router.replace(
+                routerState !== "" ? routerState : "/account/overview"
+              );
             }
           });
         } else {
           dispatch(clearNoLog());
           dispatch(handleLogin(response.data));
           localStorage.setItem("UserInfo", JSON.stringify(response.data));
-          router.push("/account/overview");
+          router.replace(
+            routerState !== "" ? routerState : "/account/overview"
+          );
         }
       }
     } catch (err: any) {

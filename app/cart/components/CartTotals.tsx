@@ -1,15 +1,17 @@
 "use client";
 import { RootState } from "@store";
+import { setRouterState } from "@store/globalSlice";
 import { CartItem } from "@types";
 import { subtotal } from "@utils/subtotal";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function CartTotals() {
   const cartItems: CartItem[] = useSelector(
     (state: RootState) => state.cart.items
   );
   const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
+  const dispatch = useDispatch();
   return (
     <article className="mt-8 w-full md:w-[35em] border border-gray-300 flex flex-col gap-4">
       <h2 className="text-base md:text-xl w-full p-3 border-b border-gray-300 bg-gray-50">
@@ -26,6 +28,9 @@ function CartTotals() {
         </span>
 
         <Link
+          onClick={() => {
+            dispatch(setRouterState("/checkout"));
+          }}
           href={isLoggedIn ? "/checkout" : "/login"}
           className="w-full text-center py-4 rounded-md bg-site-orange hover:bg-site-orange-hover text-white"
         >

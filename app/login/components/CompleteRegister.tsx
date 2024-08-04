@@ -33,6 +33,9 @@ function CompleteRegister({
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const routerState = useSelector(
+    (state: RootState) => state.global.routerState
+  );
   const router = useRouter();
 
   function handleInputs(e: any) {
@@ -85,7 +88,7 @@ function CompleteRegister({
             dispatch(clearNoLog());
             dispatch(handleLogin(response.data));
             localStorage.setItem("UserInfo", JSON.stringify(response.data));
-            router.push("/account/overview");
+            router.push(routerState !== "" ? routerState : "/account/overview");
           }
         });
       } else {
@@ -96,7 +99,7 @@ function CompleteRegister({
     } catch (err) {
       console.log(err);
       setError(true);
-      setErrorMessage("Internal error, try again!");
+      setErrorMessage(routerState !== "" ? routerState : "/account/overview");
     }
     setLoading(false);
   }

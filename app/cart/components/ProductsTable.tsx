@@ -26,7 +26,6 @@ function ProductsTable() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
-  const user = useSelector((state: RootState) => state.global.user);
   const accessToken = useSelector(
     (state: RootState) => state.global.accessToken
   );
@@ -37,6 +36,12 @@ function ProductsTable() {
     (state: RootState) => state.cart.cartUpdated
   );
   const loading = useSelector((state: RootState) => state.cart.loading);
+
+  const routerState = useSelector(
+    (state: RootState) => state.global.routerState
+  );
+
+  const addedItem = useSelector((state: RootState) => state.cart.buyAgainItem);
 
   function handleCartUpdate() {
     try {
@@ -80,13 +85,19 @@ function ProductsTable() {
       <div className="w-full overflow-y-hidden">
         <div
           className={`w-full flex gap-4 p-2 md:p-4 mb-2 md:mb-4 bg-gray-50 border-t-2 border-site-orange transition duration-150 ${
-            tableUpdated ? "translate-y-0" : "-translate-y-full"
+            tableUpdated || routerState !== ""
+              ? "translate-y-0"
+              : "-translate-y-full"
           }`}
         >
           <span className="h-5 w-5 rounded-full text-sm bg-site-orange text-white flex items-center justify-center">
             <FontAwesomeIcon icon={faCheck} />
           </span>
-          <p className="text-sm md:text-base">Cart updated.</p>
+          <p className="text-sm md:text-base">
+            {routerState === "buy-again"
+              ? `${addedItem.quantity} x ${addedItem.product_name} added to cart`
+              : "Cart updated."}
+          </p>
         </div>
       </div>
 

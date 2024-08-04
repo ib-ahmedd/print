@@ -6,8 +6,11 @@ import React, { useEffect } from "react";
 import { InfoCard, PageSkeleton } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@store";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getOrder } from "@store/ordersSlice";
+import { CartItem } from "@types";
+import { addToCartLogged, setBuyAgainItem } from "@store/cartSlice";
+import { setRouterState } from "@store/globalSlice";
 
 function OrderDetails() {
   const { id } = useParams();
@@ -20,12 +23,32 @@ function OrderDetails() {
   const loading = useSelector(
     (state: RootState) => state.orders.orderDetailsLoading
   );
+
+  const addLoading = useSelector((state: RootState) => state.cart.adding);
+  const added = useSelector((state: RootState) => state.cart.added);
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  function handleBuyAgain() {
+    const cartItemBuild: CartItem = {
+      user_id: user._id,
+      product_id: product_id,
+      product_name: product_name,
+      product_image: product_image,
+      price: price,
+      quantity: 1,
+    };
+
+    dispatch(
+      addToCartLogged({ item: cartItemBuild, accessToken: accessToken })
+    );
+    dispatch(setRouterState("buy-again"));
+    dispatch(setBuyAgainItem({ product_name: product_name, quantity: 1 }));
+  }
 
   const {
     _id,
     product_id,
-    user_id,
     product_name,
     product_image,
     quantity,
@@ -38,6 +61,12 @@ function OrderDetails() {
       dispatch(getOrder({ order_id: id, accessToken: accessToken }));
     }
   }, [appLoaded]);
+
+  useEffect(() => {
+    if (added === true) {
+      router.push("/cart");
+    }
+  }, [added]);
   return (
     <PageContainer heading="Order Details" backBtn backPath="/account/orders">
       {loading && <PageSkeleton />}
@@ -65,8 +94,14 @@ function OrderDetails() {
                 <p>Price: ${price.toFixed(2)}</p>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <button className="w-full md:w-fit py-2 px-6 text-white bg-site-orange rounded-md">
-                  BUY AGAIN
+                <button
+                  onClick={handleBuyAgain}
+                  disabled={addLoading}
+                  className={`w-full md:w-fit py-2 px-6 text-white bg-site-orange rounded-md ${
+                    addLoading && "opacity-40"
+                  }`}
+                >
+                  {addLoading ? "PROCESSING..." : "BUY AGAIN"}
                 </button>
                 <Link
                   className="font-semibold text-site-orange underline"

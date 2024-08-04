@@ -1,5 +1,6 @@
 import { RootState } from "@store";
 import { cartAltered, cartUpdated } from "@store/cartSlice";
+import { resetRouterState } from "@store/globalSlice";
 import { AlteredItems, CartItem } from "@types";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,6 +53,7 @@ function SetQuantity({
     <article className={`flex items-center ${cartLoading && "opacity-50"}`}>
       <button
         onClick={() => {
+          dispatch(resetRouterState());
           setTableData((prev) => {
             return prev.map((item) => {
               if (item._id === id && item.quantity > 1) {
@@ -72,6 +74,7 @@ function SetQuantity({
       </p>
       <button
         onClick={() => {
+          dispatch(resetRouterState());
           setTableData((prev) => {
             return prev.map((item) => {
               if (item._id === id) {

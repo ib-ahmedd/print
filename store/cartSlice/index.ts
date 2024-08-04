@@ -12,6 +12,10 @@ const initialState: InitialState = {
   errorMessage: "",
   cartAltered: false,
   cartUpdated: false,
+  buyAgainItem: {
+    product_name: "",
+    quantity: 0,
+  },
 };
 
 export const addToCartLogged = createAsyncThunk(
@@ -116,6 +120,14 @@ const cartSlice = createSlice({
       state.cartAltered = false;
       state.cartUpdated = true;
     },
+
+    setBuyAgainItem: (
+      state,
+      action: PayloadAction<{ product_name: string; quantity: number }>
+    ) => {
+      console.log("hit");
+      state.buyAgainItem = action.payload;
+    },
     emptyCart: (state) => {
       state.items = state.items.filter(() => {});
     },
@@ -195,6 +207,10 @@ interface InitialState {
   adding: boolean;
   errorMessage: string | undefined;
   cartAltered: boolean;
+  buyAgainItem: {
+    product_name: string;
+    quantity: number;
+  };
   cartUpdated: boolean;
 }
 
@@ -210,6 +226,7 @@ export const {
   cartAltered,
   cartUpdated,
   cartLoading,
+  setBuyAgainItem,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
