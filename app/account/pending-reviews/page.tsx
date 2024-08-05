@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { EmptyPage, PageContainer } from "../components";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

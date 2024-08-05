@@ -64,7 +64,7 @@ function CompleteRegister({
           state: inputs.state,
         };
         const response = await axios.post(
-          "http://localhost:4000/api/auth/register",
+          "https://print-server-wxgg.onrender.com/api/auth/register",
           userBuild,
           {
             headers: {
@@ -72,25 +72,36 @@ function CompleteRegister({
             },
           }
         );
-        let postedItems = 0;
-        cartItems.forEach(async (item) => {
-          await axios.post(
-            "http://localhost:4000/api/add-item",
-            { ...item, user_id: response.data.user._id },
-            {
-              headers: {
-                Authorization: `Bearer ${response.data.accessToken}`,
-              },
+        if (cartItems.length > 0) {
+          let postedItems = 0;
+          cartItems.forEach(async (item) => {
+            await axios.post(
+              "https://print-server-wxgg.onrender.com/api/add-item",
+              { ...item, user_id: response.data.user._id },
+              {
+                headers: {
+                  Authorization: `Bearer ${response.data.accessToken}`,
+                },
+              }
+            );
+            postedItems = postedItems + 1;
+            if (postedItems === cartItems.length) {
+              dispatch(clearNoLog());
+              dispatch(handleLogin(response.data));
+              localStorage.setItem("UserInfo", JSON.stringify(response.data));
+              router.replace(
+                routerState !== "" ? routerState : "/account/overview"
+              );
             }
+          });
+        } else {
+          dispatch(clearNoLog());
+          dispatch(handleLogin(response.data));
+          localStorage.setItem("UserInfo", JSON.stringify(response.data));
+          router.replace(
+            routerState !== "" ? routerState : "/account/overview"
           );
-          postedItems = postedItems + 1;
-          if (postedItems === cartItems.length) {
-            dispatch(clearNoLog());
-            dispatch(handleLogin(response.data));
-            localStorage.setItem("UserInfo", JSON.stringify(response.data));
-            router.push(routerState !== "" ? routerState : "/account/overview");
-          }
-        });
+        }
       } else {
         setError(true);
         setFormIncomplete(true);

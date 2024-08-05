@@ -3,7 +3,7 @@ import { subtotal } from "@utils/subtotal";
 import { usePaystackPayment } from "react-paystack";
 import { useDispatch, useSelector } from "react-redux";
 import "dotenv/config";
-import { addOrders, setOrderedItems } from "@store/ordersSlice";
+import { addOrders } from "@store/ordersSlice";
 function PaystackBtn() {
   const user = useSelector((state: RootState) => state.global.user);
   const accessToken = useSelector(

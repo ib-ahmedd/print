@@ -18,7 +18,7 @@ function ResetOTP({ email, inView, setInView, setAuthToken }: OTPProps) {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/verify-otp",
+        "https://print-server-wxgg.onrender.com/api/auth/verify-otp",
         { email: email, code: input }
       );
       setAuthToken(response.data);
@@ -41,10 +41,13 @@ function ResetOTP({ email, inView, setInView, setAuthToken }: OTPProps) {
     setErrorMessage("");
     try {
       setCountDown(10);
-      await axios.post("http://localhost:4000/api/auth/request-otp", {
-        email: email,
-        method: "reset-password",
-      });
+      await axios.post(
+        "https://print-server-wxgg.onrender.com/api/auth/request-otp",
+        {
+          email: email,
+          method: "reset-password",
+        }
+      );
     } catch (err) {
       console.log(err);
     }

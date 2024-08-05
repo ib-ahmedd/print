@@ -76,4 +76,16 @@ export interface ReviewType {
   rating: number;
   review_title: string;
   review: string;
+  reviewer_name: string;
+}
+
+export interface Comment {
+  _id: string;
+  product_id: string;
+  user_id: string;
+  rating: number;
+  review_title: string;
+  review: string;
+  date_reviewed: string;
+  reviewer_name: string;
 }

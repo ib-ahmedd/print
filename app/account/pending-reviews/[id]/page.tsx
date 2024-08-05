@@ -1,7 +1,5 @@
 "use client";
 import { PageContainer } from "@app/account/components";
-import RatingStars from "@components/RatingStars";
-import { demoProductObject } from "@constants";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { FormInput, ReviewSkeleton, ReviewSuccess } from "./components";
@@ -74,12 +72,17 @@ function Review() {
         rating: stars,
         review_title: inputs.title,
         review: inputs.review,
+        reviewer_name: user.user_name,
       };
-      await axios.post("http://localhost:4000/api/review", reviewBuild, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      await axios.post(
+        "https://print-server-wxgg.onrender.com/api/review",
+        reviewBuild,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       setSubmitted(true);
     } catch (err) {
       console.log(err);

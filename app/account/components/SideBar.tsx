@@ -1,5 +1,4 @@
 "use client";
-import ScreenCover from "./ScreenCover";
 import { sidebarLinksArray } from "../constants";
 import SideBarLink from "./SideBarLink";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +16,7 @@ function SideBar() {
   const router = useRouter();
   return (
     <aside
-      className={`w-full sm:w-1/2 md:w-2/5 slg:w-1/4 fixed left-0 top-0 slg:static bg-white slg:bg-transparent h-screen slg:h-fit flex flex-col justify-between slg:justify-start px-2 slg:px-0 py-4 slg:py-0 gap-4 shadow-xl slg:shadow-none transition duration-150 z-40 ${
+      className={`w-full sm:w-1/2 md:w-2/5 slg:w-1/4 fixed left-0 top-0 slg:static bg-white slg:bg-transparent h-screen slg:h-fit flex flex-col justify-between slg:justify-start px-2 slg:px-0 py-4 slg:py-0 gap-4 shadow-xl slg:shadow-none transition duration-150 z-40 md:z-10 ${
         sideBarOpen ? "translate-x-0" : "-translate-x-[105%] slg:translate-x-0"
       }`}
     >

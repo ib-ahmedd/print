@@ -13,6 +13,7 @@ function Product({
   sale,
   border,
 }: ProductProps) {
+  // console.log(product_image);
   return (
     <article
       className={`w-[49%] sm:w-[32%] ${

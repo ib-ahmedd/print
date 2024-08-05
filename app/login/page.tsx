@@ -10,8 +10,10 @@ import {
 import OTP from "./components/OTP";
 import { Inview } from "./types";
 import ForgotEmailForm from "./components/ForgotEmailForm";
-import { useDispatch } from "react-redux";
-import { resetRouterState } from "@store/globalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setRouterState } from "@store/globalSlice";
+import { RootState } from "@store";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const [inView, setInView] = useState<Inview>("login");
@@ -23,13 +25,21 @@ function Login() {
   });
   const [passwordResetEmail, setPasswordResetEmail] = useState("");
   const [authToken, setAuthToken] = useState("");
+  const isLoggedIn = useSelector((state: RootState) => state.global.isLoggedIn);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     return () => {
-      dispatch(resetRouterState());
+      dispatch(setRouterState(""));
     };
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      router.replace("/account/overview");
+    }
+  }, [isLoggedIn]);
   return (
     <main className="w-full flex">
       <section className="h-[40em] flex-col items-center pt-8">

@@ -40,8 +40,8 @@ function ResetPassword({
     setPasswordMatch(true);
     try {
       if (inputs.new_password === inputs.conf_password) {
-        await axios.post(
-          "http://localhost:4000/api/auth/reset-password",
+        await axios.patch(
+          "https://print-server-wxgg.onrender.com/api/auth/reset-password",
           { email: email, password: inputs.new_password },
           {
             headers: {

@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import FormInput from "./FormInput";
 import checkFormComplete from "@utils/checkFormComplete";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogin, resetRouterState } from "@store/globalSlice";
+import { handleLogin } from "@store/globalSlice";
 import { useRouter } from "next/navigation";
 import { Inview } from "../types";
 import SubmitBtn from "./SubmitBtn";
@@ -44,7 +44,7 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
     try {
       if (checkFormComplete(inputs, 2)) {
         const response = await axios.post(
-          "http://localhost:4000/api/auth/login",
+          "https://print-server-wxgg.onrender.com/api/auth/login",
           inputs
         );
 
@@ -52,7 +52,7 @@ function LoginForm({ inView, setInView }: LoginFormProps) {
         if (cartItems.length > 0) {
           cartItems.forEach(async (item) => {
             await axios.post(
-              "http://localhost:4000/api/add-item",
+              "https://print-server-wxgg.onrender.com/api/add-item",
               { ...item, user_id: response.data.user._id },
               {
                 headers: {

@@ -50,9 +50,6 @@ const globalSlice = createSlice({
       const { payload } = action;
       state.routerState = payload;
     },
-    resetRouterState: (state) => {
-      state.routerState = "";
-    },
     addToRecent: (state, action: PayloadAction<ProductsType>) => {
       const { payload } = action;
       const itemExists = state.recentlyViewed.find(
@@ -96,7 +93,6 @@ export const {
   getRecent,
   handleLogOut,
   setRouterState,
-  resetRouterState,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

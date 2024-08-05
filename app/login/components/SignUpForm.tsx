@@ -39,7 +39,7 @@ function SignUpForm({ inView, setPendingUser, setInview }: SignUpFormProps) {
         if (inputs.password.length > 5) {
           try {
             const response = await axios.post(
-              "http://localhost:4000/api/auth/request-otp",
+              "https://print-server-wxgg.onrender.com/api/auth/request-otp",
               {
                 email: inputs.email,
                 method: "register",

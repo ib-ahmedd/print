@@ -4,6 +4,7 @@ import { ProductsSection } from "@components";
 
 function Featured() {
   const { products, loading } = useGetProducts("/featured-products");
+  // console.log(products);
   return (
     <>
       <ProductsSection

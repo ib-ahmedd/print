@@ -2,7 +2,7 @@
 import Product from "@components/Product";
 import { fallBackProduct } from "@constants";
 import useGetProducts from "@hooks/useGetProducts";
-import { CartItem, ProductsType } from "@types";
+import { CartItem, Comment, ProductsType } from "@types";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import PageSkeleton from "./components/PageSkeleton";
@@ -16,6 +16,7 @@ import Link from "next/link";
 import SetQuantity from "@components/SetQuantity";
 import { AppDispatch, RootState } from "@store";
 import { addToRecent } from "@store/globalSlice";
+import ReviewsSection from "./components/ReviewsSection";
 
 function ProductPage() {
   const { id } = useParams();
@@ -44,8 +45,12 @@ function ProductPage() {
   const {
     product,
     relatedProducts,
-  }: { product: ProductsType; relatedProducts: ProductsType[] } =
-    !pageLoading && products;
+    comments,
+  }: {
+    product: ProductsType;
+    relatedProducts: ProductsType[];
+    comments: Comment[];
+  } = !pageLoading && products;
 
   const {
     _id,
@@ -65,6 +70,8 @@ function ProductPage() {
     product_name,
     quantity: productQuantity,
   };
+
+  console.log(comments);
 
   async function handleAddToCart() {
     if (isLoggedIn) {
@@ -97,7 +104,7 @@ function ProductPage() {
       {pageLoading && <PageSkeleton />}
 
       {!pageLoading && (
-        <section className="flex-col gap-12 py-20 px-4 md:px-8 xl:px-24 bg-white">
+        <section className="flex-col gap-12 py-8 md:py-20 px-4 md:px-8 xl:px-24 bg-white">
           {added && (
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t-4 border-site-orange p-4 md:p-6 bg-gray-50">
               <div className="flex items-center justify-between gap-4">
@@ -191,7 +198,7 @@ function ProductPage() {
                   !descOnScreen ? "border-t-2 border-site-orange py-2" : "py-2"
                 }
               >
-                Reviews (0)
+                Reviews ({comments.length})
               </button>
             </div>
             {descOnScreen && (
@@ -201,12 +208,12 @@ function ProductPage() {
                 ame. numquam eius modi tempora incidunt lores ta porro ame.
               </p>
             )}
-            {!descOnScreen && <p>There are no reviews yet.</p>}
+            {!descOnScreen && <ReviewsSection reviews={comments} />}
           </div>
 
           <div className="flex flex-col gap-4">
             <h2>Related products</h2>
-            <div className="flex gap-[4%] md:gap-4 flex-wrap">
+            <div className="flex md:gap-4 flex-wrap justify-between">
               {!pageLoading &&
                 relatedProducts.map((item) => (
                   <Product key={item._id} {...item} notShop />

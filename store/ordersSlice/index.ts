@@ -48,7 +48,7 @@ export const getOrders = createAsyncThunk(
     accessToken: string;
   }) => {
     const response = await axios.get(
-      `http://localhost:4000/api/get-orders/${user_id}`,
+      `https://print-server-wxgg.onrender.com/api/get-orders/${user_id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -71,7 +71,7 @@ export const addOrders = createAsyncThunk(
     accessToken: string;
   }) => {
     const response = await axios.post(
-      "http://localhost:4000/api/add-orders",
+      "https://print-server-wxgg.onrender.com/api/add-orders",
       { orders: items, user_id },
       {
         headers: {
@@ -93,7 +93,7 @@ export const getPendingReviews = createAsyncThunk(
     accessToken: string;
   }) => {
     const response = await axios.get(
-      `http://localhost:4000/api/pending-reviews/${user_id}`,
+      `https://print-server-wxgg.onrender.com/api/pending-reviews/${user_id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -114,7 +114,7 @@ export const getReviewItem = createAsyncThunk(
     accessToken: string;
   }) => {
     const response = await axios.get(
-      `http://localhost:4000/api/review-item/${orderId}`,
+      `https://print-server-wxgg.onrender.com/api/review-item/${orderId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -136,7 +136,7 @@ export const getOrder = createAsyncThunk(
     accessToken: string;
   }) => {
     const response = await axios.get(
-      `http://localhost:4000/api/order/${order_id}`,
+      `https://print-server-wxgg.onrender.com/api/order/${order_id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

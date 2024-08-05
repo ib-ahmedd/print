@@ -32,7 +32,10 @@ function ContactForm() {
     setFormIncomplete(false);
     if (checkFormComplete(inputs, 3)) {
       try {
-        await axios.post("http://localhost:4000/api/send-message", inputs);
+        await axios.post(
+          "https://print-server-wxgg.onrender.com/api/send-message",
+          inputs
+        );
         setSendSuccess(true);
       } catch (err) {
         setSendError(true);

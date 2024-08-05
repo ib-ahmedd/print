@@ -11,7 +11,7 @@ function usePostProducts(
 } {
   const [loading, setLoading] = useState(true);
   const [pageData, setPageData] = useState<FetchData>();
-  const apiLink = "http://localhost:4000/api";
+  const apiLink = "https://print-server-wxgg.onrender.com/api";
 
   const getProducts = useCallback(async () => {
     setLoading(true);

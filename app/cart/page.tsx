@@ -4,6 +4,7 @@ import { CartEmpty, CartTotals, ProductsTable } from "./components";
 import { RootState } from "@store";
 import { useEffect } from "react";
 import { cartAltered, cartUpdated } from "@store/cartSlice";
+import { setRouterState } from "@store/globalSlice";
 
 function Cart() {
   const cartItem = useSelector((state: RootState) => state.cart.items);
@@ -12,6 +13,7 @@ function Cart() {
     return () => {
       dispatch(cartAltered(false));
       dispatch(cartUpdated(false));
+      dispatch(setRouterState(""));
     };
   }, []);
   return (

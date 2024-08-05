@@ -18,10 +18,13 @@ function ForgotEmailForm({
   async function handleSubmit() {
     setLoading(true);
     try {
-      await axios.post("http://localhost:4000/api/auth/request-otp", {
-        email: email,
-        method: "reset-password",
-      });
+      await axios.post(
+        "https://print-server-wxgg.onrender.com/api/auth/request-otp",
+        {
+          email: email,
+          method: "reset-password",
+        }
+      );
       setPasswordResetEmail(email);
       setInView("reset-OTP");
     } catch (err: any) {

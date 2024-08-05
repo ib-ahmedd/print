@@ -35,9 +35,9 @@ function NavCartItem({
       <button
         onClick={() => {
           if (isLoggedIn) {
-            dispatch(deleteItem({ itemId: _id, accessToken }));
+            dispatch(deleteItem({ itemId: _id ? _id : "", accessToken }));
           } else {
-            dispatch(removeNoLog(_id));
+            dispatch(removeNoLog(_id ? _id : ""));
           }
         }}
         className="w-5 h-5 flex items-center justify-center border border-gray-500 rounded-full text-gray-500 text-xl"

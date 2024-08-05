@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AlteredItems, CartItem } from "@types";
-import { deleteCookie, getCookie, setCookie } from "@utils/cookies";
 import axios from "axios";
 
 const initialState: InitialState = {
@@ -22,7 +21,7 @@ export const addToCartLogged = createAsyncThunk(
   "cart/addToCartLogged",
   async ({ item, accessToken }: { item: CartItem; accessToken: string }) => {
     const response = await axios.post(
-      "http://localhost:4000/api/add-item",
+      "https://print-server-wxgg.onrender.com/api/add-item",
       item,
       {
         headers: {
@@ -38,7 +37,7 @@ export const getUserCart = createAsyncThunk(
   "cart/getUserCart",
   async ({ userId, accessToken }: { userId: string; accessToken: string }) => {
     const response = await axios.get(
-      `http://localhost:4000/api/get-items/${userId}`,
+      `https://print-server-wxgg.onrender.com/api/get-items/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -51,10 +50,19 @@ export const getUserCart = createAsyncThunk(
 
 export const deleteItem = createAsyncThunk(
   "cart/deleteItem",
-  async ({ itemId, accessToken }: { itemId: string; accessToken: string }) => {
-    await axios.delete(`http://localhost:4000/api/delete-item/${itemId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+  async ({
+    itemId,
+    accessToken,
+  }: {
+    itemId: string | string[];
+    accessToken: string;
+  }) => {
+    await axios.delete(
+      `https://print-server-wxgg.onrender.com/api/delete-item/${itemId}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
     return itemId;
   }
 );

@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SetQuantity from "./SetQuantity";
 import { AppDispatch, RootState } from "@store";
-import { resetRouterState } from "@store/globalSlice";
+import { setRouterState } from "@store/globalSlice";
 
 function ProductsTableItem({
   _id,
@@ -32,10 +32,10 @@ function ProductsTableItem({
         <button
           onClick={() => {
             if (isLoggedIn) {
-              dispatch(resetRouterState());
+              dispatch(setRouterState(""));
               dispatch(deleteItem({ itemId: _id ? _id : "", accessToken }));
             } else {
-              dispatch(resetRouterState());
+              dispatch(setRouterState(""));
               dispatch(removeNoLog(_id ? _id : ""));
             }
           }}

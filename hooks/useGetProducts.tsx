@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 function useGetProducts(endpoint: string) {
   const [products, setProducts] = useState<any>();
   const [loading, setLoading] = useState(true);
-  const apiLink = "http://localhost:4000/api";
+  const apiLink = "https://print-server-wxgg.onrender.com/api";
 
   const getProducts = useCallback(async () => {
     setLoading(true);

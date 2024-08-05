@@ -1,6 +1,6 @@
 function PageSkeleton() {
   return (
-    <section className="flex-col gap-12 py-20 px-4 md:px-8 xl:px-24 bg-white">
+    <section className="flex-col gap-12 py-8 md:py-20 px-4 md:px-8 xl:px-24 bg-white">
       <div className="flex flex-col md:flex-row gap-8 loading">
         <div className="md:flex-1 w-full md:w-[unset] h-[23em] md:h-[25em] lg:h-[27em]"></div>
         <span className="loading flex-1 h-full flex flex-col gap-4">

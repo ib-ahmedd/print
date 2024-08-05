@@ -1,8 +1,8 @@
 "use client";
-import Link from "next/link";
+
 import { PageContainer } from "../components";
 import { useEffect, useState } from "react";
-import { OrderedItem, OrderSkeleton } from "./components";
+import { OrderSkeleton } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@store";
 import { getOrders } from "@store/ordersSlice";
@@ -17,9 +17,6 @@ function Orders() {
   );
   const orders = useSelector((state: RootState) => state.orders.orders);
   const loading = useSelector((state: RootState) => state.orders.ordersLoading);
-  const recentlyViewed = useSelector(
-    (state: RootState) => state.global.recentlyViewed
-  );
   const dispatch = useDispatch<AppDispatch>();
 
   const openOrders = orders.filter((item) => !item.delivered);

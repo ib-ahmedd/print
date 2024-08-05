@@ -49,11 +49,15 @@ function ProductsTable() {
         dispatch(cartLoading(true));
         let updatedItems = 0;
         alteredItems.forEach(async (item) => {
-          await axios.patch("http://localhost:4000/api/update-cart", item, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
+          await axios.patch(
+            "https://print-server-wxgg.onrender.com/api/update-cart",
+            item,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
           updatedItems = updatedItems + 1;
           if (updatedItems === alteredItems.length) {
             dispatch(mergeCartItems(alteredItems));
