@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartEmpty, CartTotals, ProductsTable } from "./components";
 import { RootState } from "@store";
 import { useEffect } from "react";
-import { cartAltered, cartUpdated } from "@store/cartSlice";
+import { cartAltered, cartUpdated, clearItemAdded } from "@store/cartSlice";
 import { setRouterState } from "@store/globalSlice";
 
 function Cart() {
@@ -11,6 +11,7 @@ function Cart() {
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
+      dispatch(clearItemAdded());
       dispatch(cartAltered(false));
       dispatch(cartUpdated(false));
       dispatch(setRouterState(""));

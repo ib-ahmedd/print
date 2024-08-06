@@ -19,10 +19,10 @@ function usePostProducts(
       const response = await axios.post(apiLink + endpoint, state);
       const { data }: { data: FetchData } = response;
       setPageData(data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
-    setLoading(false);
   }, [state]);
 
   useEffect(() => {

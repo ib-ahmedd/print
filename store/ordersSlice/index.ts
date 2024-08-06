@@ -161,6 +161,7 @@ const ordersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getOrders.pending, (state) => {
+        state.orders = [];
         state.ordersLoading = true;
       })
       .addCase(getOrders.fulfilled, (state, action: PayloadAction<Order[]>) => {

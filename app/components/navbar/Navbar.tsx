@@ -186,21 +186,23 @@ function Navbar() {
       {/* --------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */
       /* ---------------------------------------mobile navbar------------------------------------------- */}
-      <div
-        className={`md:hidden absolute top-14 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 ${
-          navOpen ? "translate-y-0 shadow-md" : "-translate-y-full"
-        }`}
-      >
-        <div className={`flex flex-col w-full bg-white text-sm border-t `}>
-          <span className="flex flex-col z-10">
-            {navLinksArray.map((item) => (
-              <NavLink key={item.title} {...item} />
-            ))}
-            <NavLink title="MY ACCOUNT" path="/account/overview" />
-            <NavLink title="CART" path="/cart" />
-          </span>
+      {!navHidden && (
+        <div
+          className={`md:hidden absolute top-14 left-0 w-full overflow-y-hidden bg-red-500 transition duration-150 z-20 ${
+            navOpen ? "translate-y-0 shadow-md" : "-translate-y-full"
+          }`}
+        >
+          <div className={`flex flex-col w-full bg-white text-sm border-t `}>
+            <span className="flex flex-col z-10">
+              {navLinksArray.map((item) => (
+                <NavLink key={item.title} {...item} />
+              ))}
+              <NavLink title="MY ACCOUNT" path="/account/overview" />
+              <NavLink title="CART" path="/cart" />
+            </span>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import { PageContainer } from "@app/account/components";
-import { demoProductObject } from "@constants";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { InfoCard, PageSkeleton } from "./components";
